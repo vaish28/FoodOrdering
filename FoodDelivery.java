@@ -185,6 +185,27 @@ class Provider
 		}while(choice<0 || choice>3);
 
 	}
+	class Customer
+	{
+		String name;
+		long teleno;
+		String address;
+		long regno;
+		String catg;
+		String provider;
+		String day;
+		Customer()
+		{
+			teleno=0;
+			regno=0;
+		}
+		void acceptcust()
+		{
+			Calendar calendar = Calendar.getInstance();
+			int day=calendar.get(Calendar.DATE);
+			System.out.println(day);
+		}	
+	}
 }
 public class FoodDelivery {
 

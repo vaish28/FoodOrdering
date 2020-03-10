@@ -42,8 +42,16 @@ class Menu
 			}
 		}
 		catmenu=catm;
+		do
+		{
+			
 		System.out.println("Enter cost per tiffin: ");
 		tcost=sc.nextDouble();
+			if(tcost<0)
+			{
+				System.out.println("Please enter valid cost!");
+			}
+		}while(tcost<0);
 		System.out.println("Enter monthly cost : ");
 		moncost=sc.nextDouble();
 	}

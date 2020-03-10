@@ -187,6 +187,7 @@ class Provider
 }
 class Customer
 {
+	private:
 	String name;
 	long teleno;
 	String address;
@@ -238,15 +239,15 @@ public class FoodDelivery {
 		Customer c=new Customer();
 		c.acceptcust(sc,p,n);
 		try {
-				 ResultSet rs=null;
+				  ResultSet rs=null;
 				   Class.forName("com.mysql.jdbc.Driver");
 				   String url=("jdbc:mysql://localhost/dabewala");
 				   Connection con=DriverManager.getConnection(url,"root","abcd1234");
 				   Statement stmt=con.createStatement();
-				   //String query="select * from provdetails";
-				   //rs=stmt.executeQuery(query);
-				   stmt.executeUpdate("insert into provdetails values ("+"1,Anaya,tiffin,123,Warje)");
+				   System.out.println("driver loaded");
 				   
+				   stmt.executeUpdate("insert into provdetails "+"values(3,'Ana','tif',123,'bbb')");
+				   System.out.println("added");
 			}
 			catch(Exception e)
 			{

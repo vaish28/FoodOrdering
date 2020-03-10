@@ -1,6 +1,7 @@
-package fooddelivery;
-import java.util.*;
 
+import java.util.*;
+import java.sql.*;
+import javax.sql.*;
 class Menu
 {
 	String menu[][]=new String[8][7];
@@ -107,10 +108,7 @@ class Provider
 
 
 	Provider()
-	{
-
-		teleno=0;
-
+	{		teleno=0;
 	}
 
 	void acceptProDetails(Scanner sc)
@@ -226,6 +224,7 @@ public class FoodDelivery {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
 		Scanner sc=new Scanner(System.in);
 		int n;
 		System.out.println("Enter number of providers");
@@ -238,7 +237,22 @@ public class FoodDelivery {
 		}
 		Customer c=new Customer();
 		c.acceptcust(sc,p,n);
+		try {
+				 ResultSet rs=null;
+				   Class.forName("com.mysql.jdbc.Driver");
+				   String url=("jdbc:mysql://localhost/dabewala");
+				   Connection con=DriverManager.getConnection(url,"root","abcd1234");
+				   Statement stmt=con.createStatement();
+				   //String query="select * from provdetails";
+				   //rs=stmt.executeQuery(query);
+				   stmt.executeUpdate("insert into provdetails values ("+"1,Anaya,tiffin,123,Warje)");
+				   
+			}
+			catch(Exception e)
+			{
+				System.out.println("e");
+			}
+			
 	}
 
 }
-

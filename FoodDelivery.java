@@ -31,12 +31,12 @@ class Menu
 		sc.nextLine();
 		for(int i=1;i<8;i++)
 		{
-			
+
 			System.out.println("For "+menu[i][0]);
 
 			for(int j=1;j<7;j++)
 			{
-				
+
 				System.out.println(menu[0][j]+" = ");
 				menu[i][j]=sc.nextLine();
 			}
@@ -44,9 +44,9 @@ class Menu
 		catmenu=catm;
 		do
 		{
-			
-		System.out.println("Enter cost per tiffin: ");
-		tcost=sc.nextDouble();
+
+			System.out.println("Enter cost per tiffin: ");
+			tcost=sc.nextDouble();
 			if(tcost<0)
 			{
 				System.out.println("Please enter valid cost!");
@@ -112,7 +112,7 @@ class Provider
 		teleno=0;
 
 	}
-	
+
 	void acceptProDetails(Scanner sc)
 	{
 		System.out.println("Enter the name of your business  :");
@@ -185,36 +185,59 @@ class Provider
 		}while(choice<0 || choice>3);
 
 	}
-	class Customer
+	
+}
+class Customer
+{
+	String name;
+	long teleno;
+	String address;
+	long regno;
+	String catg;
+	int providerno;
+	String day;
+	Customer()
 	{
-		String name;
-		long teleno;
-		String address;
-		long regno;
-		String catg;
-		String provider;
-		String day;
-		Customer()
-		{
-			teleno=0;
-			regno=0;
-		}
-		void acceptcust()
-		{
-			Calendar calendar = Calendar.getInstance();
-			int day=calendar.get(Calendar.DATE);
-			System.out.println(day);
-		}	
+		teleno=0;
+		regno=0;
 	}
+	void acceptcust(Scanner sc,Provider p[],int n)
+	{
+		Calendar calendar = Calendar.getInstance();
+		int day=calendar.get(Calendar.DAY_OF_WEEK);
+		System.out.println(day);
+		
+		for(int i=0;i<n;i++)
+		{
+			System.out.println(p[i].service);
+		}
+		System.out.println("Enter which provider you want to select:");
+		String prov=sc.next();
+		for(int j=0;j<n;j++)
+		{
+			if(p[j].service.compareToIgnoreCase(prov)==0)
+			{
+				providerno=j;
+			}
+		}
+	}	
 }
 public class FoodDelivery {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner sc=new Scanner(System.in);
-		Provider p1=new  Provider();
-		p1.acceptProDetails(sc);
-		
+		int n;
+		System.out.println("Enter number of providers");
+		n=sc.nextInt();
+		Provider p[]= new  Provider[n];
+		for(int i=0;i<n;i++)
+		{
+			p[i]=new Provider();
+			p[i].acceptProDetails(sc);
+		}
+		Customer c=new Customer();
+		c.acceptcust(sc,p,n);
 	}
 
 }

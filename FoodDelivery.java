@@ -237,45 +237,55 @@ public class FoodDelivery {
 		// TODO Auto-generated method stub
 		
 		Scanner sc=new Scanner(System.in);
-		int n;
+		/*int n;
 		System.out.println("Enter number of providers");
 		n=sc.nextInt();
-		Provider p[]= new  Provider[n];
+		Provider p= new  Provider();
 		for(int i=0;i<n;i++)
 		{
 			p[i]=new Provider();
 			p[i].acceptProDetails(sc);
-		}
+		}*/
 		Customer c=new Customer();
-		c.acceptcust(sc,p,n);
+		
 		int ch,ch1,ch2;
-		/*do{
+		do{
 			System.out.println("\t\tMenu");
-			System.out.pritntln("\t1.Add Customer\n\t2.Add Provider\n\t0.Exit\nEnter choice");
+			System.out.pritntln("\t1.Add Provider\n\t2.Add Customer\n\t0.Exit\nEnter choice");
 			ch=sc.nextInt();
 			switch(ch)
 			{
-				case 1:
+					case 1:
+					do{
+						System.out.println("\n\t\tMenu\n\t1.Register\n\t2.Add/Update menu\n\t0.Exit")
+						
+					}while(ch2<0 || ch2>2);
+					break;
+			
+				case 2:
 					do{
 						System.out.println("\n\t\tMenu\n\t1.Register\n\t2.Select provider\n\t0.Exit");
+						ch1 = sc.nextInt();
 						switch(ch1)
 						{
 							case 1:
+
+								c.acceptcust(sc,p,n);
 								
+								break;
+							case 2:
+
+
+
 								break;
 								
 						}
 					}while(ch1!=0);
 					break;
-				case 2:
-					do{
-						System.out.println("\n\t\tMenu\n\t1.Register\n\t2.Add/Update menu\n\t0.Exit");
-					}while(ch2!=0);
-					break;
-				
+
 			}
 		}while(ch!=0);
-		*/
+		
 		try {
 				  ResultSet rs=null;
 				   Class.forName("com.mysql.jdbc.Driver");

@@ -1,4 +1,3 @@
-
 import java.util.*;
 import java.sql.*;
 import javax.sql.*;
@@ -99,6 +98,7 @@ class Menu
 }
 class Provider
 {
+	int provno;
 	String category;
 	String Owner;
 	String service;   //name of the business
@@ -114,6 +114,7 @@ class Provider
 	void acceptProDetails(Scanner sc)
 	{
 		System.out.println("Enter the name of your business  :");
+		sc.nextLine();
 		service = sc.nextLine();
 
 		System.out.println("Enter the name of the Owner  :");
@@ -183,22 +184,31 @@ class Provider
 		}while(choice<0 || choice>3);
 
 	}
-	
+	String getprovquery()
+	{
+		String str=provno+",'"+Owner+"','"+service+"',"+teleno+",'"+Address+"'";
+		return str;
+	}
 }
 class Customer
 {
-	private:
-	String name;
-	long teleno;
-	String address;
-	long regno;
-	String catg;
-	int providerno;
-	String day;
+	private String name;
+	private long teleno;
+	private String address;
+	private long regno;
+	private String catg;
+	private int providerno;
+	private String day;
 	Customer()
 	{
 		teleno=0;
 		regno=0;
+	}
+
+	String sqlquery()
+	{
+		String str=regno+",'"+name+"',"+teleno+",'"+address+"'";
+		return str;
 	}
 	void acceptcust(Scanner sc,Provider p[],int n)
 	{
@@ -238,6 +248,34 @@ public class FoodDelivery {
 		}
 		Customer c=new Customer();
 		c.acceptcust(sc,p,n);
+		int ch,ch1,ch2;
+		/*do{
+			System.out.println("\t\tMenu");
+			System.out.pritntln("\t1.Add Customer\n\t2.Add Provider\n\t0.Exit\nEnter choice");
+			ch=sc.nextInt();
+			switch(ch)
+			{
+				case 1:
+					do{
+						System.out.println("\n\t\tMenu\n\t1.Register\n\t2.Select provider\n\t0.Exit");
+						switch(ch1)
+						{
+							case 1:
+								
+								break;
+								
+						}
+					}while(ch1!=0);
+					break;
+				case 2:
+					do{
+						System.out.println("\n\t\tMenu\n\t1.Register\n\t2.Add/Update menu\n\t0.Exit");
+					}while(ch2!=0);
+					break;
+				
+			}
+		}while(ch!=0);
+		*/
 		try {
 				  ResultSet rs=null;
 				   Class.forName("com.mysql.jdbc.Driver");
@@ -245,8 +283,13 @@ public class FoodDelivery {
 				   Connection con=DriverManager.getConnection(url,"root","abcd1234");
 				   Statement stmt=con.createStatement();
 				   System.out.println("driver loaded");
+				   //String str1=
+				   //stmt.executeUpdate("insert into provdetails "+"values(str1)");
 				   
-				   stmt.executeUpdate("insert into provdetails "+"values(3,'Ana','tif',123,'bbb')");
+				   String str=c.sqlquery();
+				   System.out.println(str);
+				   stmt.executeUpdate("insert into custdetails "+"values(str)");
+
 				   System.out.println("added");
 			}
 			catch(Exception e)

@@ -1,4 +1,4 @@
-package fooddelivery;
+//package fooddelivery;
 
 import java.util.*;
 import java.sql.*;
@@ -108,6 +108,7 @@ class Details
 	
 	protected void accept(Scanner sc)
 	{
+		sc.nextLine();
 		System.out.println("Enter your name");
 		name=sc.nextLine();			
 		int flag=0;
@@ -155,10 +156,9 @@ class Provider extends Details
 		System.out.println("Enter the name of your business  :");
 		sc.nextLine();
 		service = sc.nextLine();
+		int choice=0;
 
-				int choice=0;
-
-		do
+/*do
 		{
 			System.out.println("Enter category of your food :\n\t1.Vegetarian\n\t2.Non-Vegetarian\n\t3.Both\n\t0.Exit");
 			choice=sc.nextInt();
@@ -166,7 +166,7 @@ class Provider extends Details
 			{
 			case 1:
 				category="Vegetarian";
-				promenu=new Menu[1];
+				/*promenu=new Menu[1];
 				promenu[0]=new Menu();
 				promenu[0].acceptMenu(sc,category);
 				promenu[0].display();
@@ -197,7 +197,7 @@ class Provider extends Details
 				break;
 			}
 		}while(choice<0 || choice>3);
-
+*/
 	}
 	String getprovquery()
 	{
@@ -205,6 +205,43 @@ class Provider extends Details
 		return str;
 	}
 
+	void acceptmenu(Scanner sc,Statement st)
+	{
+		try
+		{
+			st.executeQuery("Use dabewala");
+			do
+			{
+				System.out.println("Enter category of your food :\n\t1.Vegetarian\n\t2.Non-Vegetarian\n\t3.Both\n\t0.Exit");
+				choice=sc.nextInt();
+				switch(choice)
+				{
+					case 1:
+						category="Vegetarian";
+						st.executeQuery("create table menuv" +providerno+"( Gravy varchar(30),Dry_veg varchar(30) , Chapati varchar(20), Sides varchar(30), Rice  varchar(30),Special varchar(30))");
+						
+
+						break;
+					case 2:
+						category="Non-Vegetarian";
+						st.executeQuery("create table menunv" +providerno+"( Gravy varchar(30),Dry_veg varchar(30) , Chapati varchar(20), Sides varchar(30), Rice  varchar(30),Special varchar(30))");
+						break;
+					case 3:
+						category="Both";
+						st.executeQuery("create table menuv" +providerno+"( Gravy varchar(30),Dry_veg varchar(30) , Chapati varchar(20), Sides varchar(30), Rice  varchar(30),Special varchar(30))");
+						st.executeQuery("create table menunv" +providerno+"( Gravy varchar(30),Dry_veg varchar(30) , Chapati varchar(20), Sides varchar(30), Rice  varchar(30),Special varchar(30))");
+						break;
+					case 0:
+						break;
+					default:
+						System.out.println("Invalid choice! Please enter again");
+						break;
+				}
+			}while(choice<0 || choice>3);
+				
+		}
+		
+	}
 
 	void updateMENU(Scanner sc)
 	{
@@ -273,14 +310,45 @@ class Customer extends Details
 			
 			if(choice==1)
 			{
-				//stmt.executeQuery(") search query
-			}
-			else
-				if(choice==2)
+				int flag=0;
+				String q="select name,business from provdetails where category = "Veg" ";
+				rs=stmt.executeQuery(q);
+				while(rs.next())
 				{
-					//search query
+					rs.getString(1);
+					rs.getString(2);
+					flag=1;
 				}
-			//stmt.executeQuery("select id,name,service from provdetails;");
+				if(flag==0)
+				{
+					System.out.println("We dont have any veg providers");
+				}
+			}
+			else if(choice==2)
+				{
+					int flag=0;
+					String q="select name,business from provdetails where category = "Nonveg" ";
+					rs=stmt.executeQuery(q);
+					while(rs.next())
+					{
+						rs.getString(1);
+						rs.getString(2);
+						flag=1;
+					}
+					if(flag==0)
+					{
+						System.out.println("We dont have any Nonveg providers");
+					}
+				}
+			else{
+				rs=stmt.executeQuery("select name,business from provdetails");
+				while(rs.next())
+				{
+					rs.getString(1);
+					rs.getString(2);
+					flag=1;
+				}
+			}
 		}
 		catch(Exception e)
 		{
@@ -289,7 +357,24 @@ class Customer extends Details
 		
 		System.out.println("Above is the list of provider details ::Please Enter which providerno you want to select ");
 		providerno=sc.nextInt();
-		
+		//display respective providers menu
+	}
+	
+	void bill()
+	{
+		System.out.println("\t Enter your choice  \n \t 1. Single tiffin \n \t2. Monthly tiffin");
+		String tiffin=sc.nextInt();
+		String q="select business from provdetails where pno = "+providerno+"";
+		rs=stmt.executeQuery(q);
+		if(rs.next())
+		{
+			System.out.println(rs.getString(1));
+		}
+		System.out.println("______________________________________");
+		System.out.println("#######################################");
+		System.out.println();
+		Calendar calendar = Calendar.getInstance();
+		System.out.println(calendar.get(Calendar.getTime()));
 	}
 }
 class DeliveryGuy extends Details
@@ -334,11 +419,11 @@ public class FoodDelivery {
 		try {
 			ResultSet rs=null;
 			//			System.out.println("1");
-			//			Class.forName("com.mysql.jdbc.driver");
-			//			System.out.println("2sfgv");
-			//			String url=("jdbc:mysql://localhost/dabewala");
-			//			System.out.println("3sfgv");
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost/dabewala");
+					Class.forName("com.mysql.jdbc.Driver");
+						System.out.println("2sfgv");
+						String url=("jdbc:mysql://localhost/dabewala");
+						System.out.println("3sfgv");
+			Connection con=DriverManager.getConnection(url,"root","abcd1234");
 			Statement stmt=con.createStatement();
 			System.out.println("driver loaded");
 
@@ -346,9 +431,11 @@ public class FoodDelivery {
 				System.out.println("\t\tMenu");
 				System.out.println("\t1.Add Provider\n\t2.Add Customer\n\t0.Exit\nEnter choice");
 				ch=sc.nextInt();
+				int flag=0;
 				switch(ch)
 				{
 				case 1:
+					flag=1;
 					do{
 						System.out.println("\n\t\tMenu\n\t1.Register/Login\n\t2.Update menu\n\t0.Exit");
 						ch2=sc.nextInt();
@@ -358,18 +445,33 @@ public class FoodDelivery {
 							long tele;
 							System.out.println("Enter mobile number");
 							tele=sc.nextLong();
-							//search
-							Provider p = new Provider();
-							p.acceptProDetails(sc);
-							String str1=p.getprovquery();
-							stmt.executeUpdate("insert into provdetails "+"values("+str1+")");
-							System.out.println("Registered successfully!");
-
+							String q="select name,business from provdetails where telno = "+tele+"";
+							rs=stmt.executeQuery(q);
+							if(rs.next()==false)
+							{
+								
+								Provider p = new Provider();
+								p.acceptProDetails(sc);
+								String str1=p.getprovquery();
+								stmt.executeUpdate("insert into provdetails "+"values("+str1+")");
+								System.out.println("Registered successfully!");
+							
+							}
+							else
+							{
+							System.out.print("Logged in successfully");
+								/*while(rs.next())
+								{
+									System.out.print("while mdhe ala");
+									System.out.println(rs.getString(1));
+									System.out.println(rs.getString(2));
+								}*/
+							}
 							Calendar calendar = Calendar.getInstance();
 							int day=calendar.get(Calendar.DAY_OF_WEEK);
 							if(day==1)
 							{
-								System.out.println("Its Monday!!Do you want to change 									the Menu\n(1.YES 2.NO)");
+								System.out.println("Its Monday!!Do you want to change the Menu\n(1.YES 2.NO)");
 								int cho;
 								do
 								{
@@ -387,7 +489,13 @@ public class FoodDelivery {
 							break;
 
 						case 2:
-
+							if(flag!=1)
+							{
+								System.out.println("Register/Log in first");
+							}
+							else{
+								
+							}
 							//stmt.modify()
 							break;
 

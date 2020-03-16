@@ -1,48 +1,53 @@
 import java.util.*;
 import java.sql.*;
 
-
+enum days
+{
+	Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
+}
+enum menuItems
+{
+	Gravy ,Dry_veg , Chapati , Sides , Rice ,Special 
+	
+}
 class Menu
 {
-	String menu[][]=new String[8][7];
-	double tcost;
-	double moncost;
-	String catmenu;
-	Menu()
-	{
-
-		menu[1][0]="Monday";
-		menu[2][0]="Tuesday";
-		menu[3][0]="Wednesday";
-		menu[4][0]="Thursday";
-		menu[5][0]="Friday";
-		menu[6][0]="Saturday";
-		menu[7][0]="Sunday";
-		menu[0][1]="Gravy";
-		menu[0][2]="Dry veg";
-		menu[0][3]="Chapati";
-		menu[0][4]="Sides";
-		menu[0][5]="Rice";
-		menu[0][6]="Special";
-
-	}
-
-	void acceptMenu(Scanner sc,String catm)
+	void acceptMenu(Scanner sc,Statement stmt)
 	{
 		sc.nextLine();
-		for(int i=1;i<8;i++)
+		days d[]=days.values();
+		menuItems m[]=menuItems.values();
+		for(int i=0;i<8;i++)
 		{
-
-			System.out.println("For "+menu[i][0]);
-
-			for(int j=1;j<7;j++)
-			{
-
-				System.out.println(menu[0][j]+" = ");
-				menu[i][j]=sc.nextLine();
-			}
+			String fitem="";
+			System.out.println("For "+d[i]);
+			try
+				{
+					for(int j=0;j<6;j++)
+					{
+						
+						System.out.println("Enter "+m[j]);
+						String item;
+						item=sc.nextLine();
+						if(j<5)
+						{
+							fitem=fitem+"'"+item+"',";
+						}
+						else
+							fitem=fitem+"'"+item+"'";
+						
+						
+						
+					}
+					System.out.println("String is"+fitem);
+					stmt.executeUpdate("insert into menu values (1,'Monday',"+fitem+")");
+				}
+				catch(Exception e)
+				{
+					System.out.println("Exception"+e);
+				}
 		}
-		catmenu=catm;
+/*		catmenu=catm;
 		do
 		{
 
@@ -55,7 +60,9 @@ class Menu
 		}while(tcost<0);
 		System.out.println("Enter monthly cost : ");
 		moncost=sc.nextDouble();
+		*/
 	}
+	/*
 	void update(Scanner sc)
 	{
 
@@ -83,18 +90,7 @@ class Menu
 		System.out.println("Menu updated!!");
 
 	}
-	void display()
-	{
-		menu[0][0]="";
-		for(int i=0;i<8;i++)
-		{
-			for(int j=0;j<7;j++)
-			{
-				System.out.print(menu[i][j]+"\t\t");
-			}
-			System.out.println();
-		}
-	}
+	*/
 }
 class Details
 {
@@ -103,12 +99,14 @@ class Details
 	protected long teleno;
 	protected String address;
 
-	protected void accept(Scanner sc)
+	protected void accept(Scanner sc,int d)
 	{
 		sc.nextLine();
 		System.out.println("Enter your name");
 		name=sc.nextLine();			
 		int flag=0;
+		if(d!=1)
+		{
 		do
 		{
 			try{
@@ -127,7 +125,7 @@ class Details
 
 		}while(Long.toString(teleno).length() != 10 && flag==1 && teleno<0);
 		sc.nextLine();
-
+		}
 
 		System.out.println("Enter your address");
 		address=sc.nextLine();
@@ -141,11 +139,10 @@ class Provider extends Details
 {
 	String category;
 	String service;   //name of the business
-	Menu promenu[];
 	double tcost;
 	double moncost;
 	int providerno=0;
-	//Add monthlycost and single cost in table
+	Menu mm=new Menu();
 	//Add star rating in the table
 	Provider()
 	{		teleno=0;
@@ -153,55 +150,15 @@ class Provider extends Details
 
 	void acceptProDetails(Scanner sc)
 	{
-		super.accept(sc);
+		super.accept(sc,1);
 		System.out.println("Enter the name of your business  :");
 		sc.nextLine();
 		service = sc.nextLine();
 		
-		/*do
-		{
-			System.out.println("Enter category of your food :\n\t1.Vegetarian\n\t2.Non-Vegetarian\n\t3.Both\n\t0.Exit");
-			choice=sc.nextInt();
-			switch(choice)
-			{
-			case 1:
-				category="Vegetarian";
-				/*promenu=new Menu[1];
-				promenu[0]=new Menu();
-				promenu[0].acceptMenu(sc,category);
-				promenu[0].display();
-				break;
-			case 2:
-				category="Non-Vegetarian";
-				promenu=new Menu[1];
-				promenu[0]=new Menu();
-				promenu[0].acceptMenu(sc,category);
-				promenu[0].display();
-				break;
-			case 3:
-				category="Both";
-				promenu=new Menu[2];
-				promenu[0]=new Menu();
-				System.out.println("For Vegeterian");
-				promenu[0].acceptMenu(sc,"Vegetarian");
-				promenu[0].display();
-				promenu[1]=new Menu();
-				System.out.println("For Non-Vegeterian");
-				promenu[1].acceptMenu(sc, "Non-Vegetarian");
-				promenu[1].display();
-				break;
-			case 0:
-				break;
-			default:
-				System.out.println("Invalid choice! Please enter again");
-				break;
-			}
-		}while(choice<0 || choice>3);
-		 */
 	}
 	String getprovquery()
 	{
-		String str=id+",'"+name+"','"+service+"',"+teleno+",'"+address+"','"+category+"'";
+		String str=id+",'"+name+"','"+service+"',"+teleno+",'"+address+"','"+category+"',"+tcost+","+moncost;
 		return str;
 	}
 
@@ -219,8 +176,9 @@ class Provider extends Details
 				{
 				case 1:
 					category="Vegetarian";
-					st.executeQuery("");
-					st.executeQuery("create table menuv" +providerno+"( Day varchar(10),Gravy varchar(30),Dry_veg varchar(30) , Chapati varchar(20), Sides varchar(30), Rice  varchar(30),Special varchar(30))");
+					mm.acceptMenu(sc,st);
+					//st.executeUpdate("create table menuv1"+"(  Day varchar(10),Gravy varchar(30),Dry_veg varchar(30) , Chapati varchar(20), Sides varchar(30), Rice  varchar(30),Special varchar(30))");
+				
 					break;
 				case 2:
 					category="Non-Vegetarian";
@@ -266,7 +224,7 @@ class Provider extends Details
 		}while(moncost<0);
 
 	}
-
+/*
 	void updateMENU(Scanner sc)
 	{
 		if(category.equals("Vegetarian") || category.equals("Non-Vegeterian"))
@@ -303,12 +261,9 @@ class Provider extends Details
 
 		}
 
-	}
+	}*/
 }
-enum days
-{
-	Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
-}
+
 class Customer extends Details
 {
 	private String catg;
@@ -328,7 +283,7 @@ class Customer extends Details
 	}
 	void acceptcust(Scanner sc,Statement stmt)
 	{ 
-		super.accept(sc);
+		super.accept(sc,0);
 		System.out.println("\t Enter your choice  \n \t Single tiffin \n \t Monthly tiffin");
 		tiffin=sc.nextLine();
 		ResultSet rs=null;
@@ -446,7 +401,7 @@ class DeliveryGuy extends Details
 	}
 	void acceptd(Scanner sc)
 	{
-		super.accept(sc);
+		super.accept(sc,0);
 
 	}
 	void assignarea()

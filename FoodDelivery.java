@@ -62,35 +62,38 @@ class Menu
 		moncost=sc.nextDouble();
 		*/
 	}
-	/*
-	void update(Scanner sc)
+	
+	void update(Scanner sc,Statement st)
 	{
-
 		System.out.println("Enter which day to update menu");
 		String day=sc.next();
 		int i,j;
-		for(i=1;i<=7;i++)
-		{
-			if(menu[i][0].compareToIgnoreCase(day)==0)
-			{
-				break;
-			}
-		}
-		System.out.println("Which food category you want to update?");
-		String cat=sc.next();
+		menuItems m[]=menuItems.values();
 		for(j=1;j<=6;j++)
 		{
-			if(menu[0][j].compareToIgnoreCase(cat)==0)
-			{
-				break;
-			}
+			System.out.println(m[j]);
 		}
+		System.out.println("Enter which item out of the above to update::");
+		String mi=sc.nextLine();
+		System.out.println("Enter older item :");
+		String old=sc.nextLine();
+		
 		System.out.println("Enter updated food item");
-		menu[i][j]=sc.nextLine();
+		String it=sc.nextLine();
+		//write query
+		try{
+		
+		st.executeUpdate("update menu set "+mi+"="+it+" where "+mi+"="+old+" and Day="+day+" and pno=1");
 		System.out.println("Menu updated!!");
+		}
+		catch(Exception e)
+		{
+			System.out.println("Exception!");
+		}
+		
 
 	}
-	*/
+	
 }
 class Details
 {
@@ -223,6 +226,10 @@ class Provider extends Details
 			}
 		}while(moncost<0);
 
+	}
+	void upmen(Scanner sc,Statemnet stmt)
+	{
+		mm.update(sc,stmt);
 	}
 /*
 	void updateMENU(Scanner sc)
@@ -500,7 +507,7 @@ public class FoodDelivery {
 								System.out.println("Register/Log in first");
 							}
 							else{
-
+								p.upmen(sc,stmt);
 							}
 							//stmt.modify()
 							break;

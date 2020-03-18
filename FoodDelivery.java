@@ -419,7 +419,7 @@ public class FoodDelivery {
 
 			System.out.println("3sfgv");
 
-			Connection con=DriverManager.getConnection(url,"root","Archanasanjeev@99");
+			Connection con=DriverManager.getConnection(url,"root","abcd1234");
 
 			Statement stmt=con.createStatement();
 

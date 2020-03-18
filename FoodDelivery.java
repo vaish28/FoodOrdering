@@ -170,12 +170,12 @@ class Provider extends Details
 	{
 		super.accept(sc,1);
 		System.out.println("Enter the name of your business  :");
-		sc.nextLine();
 		service = sc.nextLine();
 		
 	}
-	String getprovquery()
+	String getprovquery(long tele)
 	{
+		teleno=tele;
 		String str=id+",'"+name+"','"+service+"',"+teleno+",'"+address+"','"+category+"',"+tcost+","+moncost;
 		return str;
 	}
@@ -266,20 +266,16 @@ class Customer extends Details
 
 	String sqlquery()
 	{
+	
 		String str=id+",'"+name+"',"+teleno+",'"+address+"'";
 		return str;
 	}
 	void acceptcust(Scanner sc,Statement stmt)
 	{ 
 		super.accept(sc,0);
-		System.out.println("\t Enter your choice  \n \t Single tiffin \n \t Monthly tiffin");
-		tiffin=sc.nextLine();
+		
 		ResultSet rs=null;
-		do
-		{
-			System.out.println("Enter quantity");
-			quantity=sc.nextInt();
-		}while(quantity<=0);
+		
 		try
 		{
 			System.out.println("Enter category of your food :\n\t1.Vegetarian\n\t2.Non-Vegetarian\n\t3.Both\n\t0.Exit");
@@ -325,15 +321,22 @@ class Customer extends Details
 					rs.getString(2);
 				}
 			}
+			do
+			{
+				System.out.println("Enter quantity");
+				quantity=sc.nextInt();
+			}while(quantity<=0);
 		}
 		catch(Exception e)
 		{
 			System.out.println("Exception");
 		}
-
+		//display respective providers menu
+		System.out.println("\t Enter your choice  \n \t Single tiffin \n \t Monthly tiffin");
+		tiffin=sc.nextLine();
 		System.out.println("Above is the list of provider details ::Please Enter which providerno you want to select ");
 		providerno=sc.nextInt();
-		//display respective providers menu
+		
 
 
 	}
@@ -406,7 +409,7 @@ public class FoodDelivery {
 		int ch,ch1=0,ch2=0;
 
 
-		long tele;
+		long tele = 0;
 
 		try {
 			ResultSet rs=null;
@@ -428,7 +431,7 @@ public class FoodDelivery {
 			do{
 
 				System.out.println("\tAre you a ....");
-				System.out.println("\t1.Provider\n\t2.Customer\n\t0.Exit :( \nEnter choice");
+				System.out.println("\t1.Provider\n\t2.Customer\n\t0.Exit : \nEnter choice");
 				ch=sc.nextInt();
 				int flag=0;
 				switch(ch)
@@ -438,18 +441,34 @@ public class FoodDelivery {
 					Provider p = new Provider();
 					System.out.println(" \t\tRegister / Login");
 
-					System.out.println("Enter mobile number");
-					tele=sc.nextLong();
+					do
+					{
+						try{
+							System.out.println("Enter mobile number  :");
+							tele=sc.nextLong();
+							if(Long.toString(tele).length() != 10)
+							{
+								System.out.println("Please enter valid phone number");
+							}
+						}
+						catch(InputMismatchException e){
+							System.out.println("Please enter valid phone number ");
+							flag=1;
+							sc.next();
+						}
+
+					}while(Long.toString(tele).length() != 10 && flag==1 && tele<0);
 					String q="select pno from provdetails where telno = "+tele+"";
 					rs=stmt.executeQuery(q);
 					if(rs.next()==false)
 					{
 						
 						p.acceptProDetails(sc);
-						String str1=p.getprovquery();
-						stmt.executeUpdate("insert into provdetails "+"values("+str1+")");
+						
 						System.out.println("Registered successfully!");
 						p.acceptmenu(sc,stmt);
+						String str1=p.getprovquery(tele);
+						stmt.executeUpdate("insert into provdetails "+"values("+str1+")");
 					}
 					else
 					{
@@ -496,8 +515,24 @@ public class FoodDelivery {
 				case 2: // customer
 
 					System.out.println("Register / Login");
-					System.out.println("Enter mobile number");
-					tele=sc.nextLong();
+					do
+					{
+						try{
+							System.out.println("Enter mobile number  :");
+							tele=sc.nextLong();
+							if(Long.toString(tele).length() != 10)
+							{
+								System.out.println("Please enter valid phone number");
+							}
+						}
+						catch(InputMismatchException e){
+							System.out.println("Please enter valid phone number ");
+							flag=1;
+							sc.next();
+						}
+
+					}while(Long.toString(tele).length() != 10 && flag==1 && tele<0);
+					
 					q="select id from custdetails where teleno = "+tele+"";
 					rs=stmt.executeQuery(q);
 					if(rs.next()==false)
@@ -519,7 +554,7 @@ public class FoodDelivery {
 						
 						do {
 							
-							System.out.println("\n\t\tMenu\n\t1.Select provider\n\t2.Post ratings\n\t 0.Exit");
+							System.out.println("\n\t\tMenu\n\t1.Select provider and place order\n\t2.Bill\n\t 0.Exit");
 							
 							ch1 = sc.nextInt();
 						
@@ -538,8 +573,8 @@ public class FoodDelivery {
 
 							break;
 
-						case 3:
-							//ratings
+						case 0:
+							System.out.println("Thank you!!");
 							break;
 
 						default:

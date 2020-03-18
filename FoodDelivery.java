@@ -194,13 +194,13 @@ class Provider extends Details
 				switch(choice)
 				{
 				case 1:
-					category="Vegetarian";
+					category="Veg";
 					mm.acceptMenu(sc,st,0,0);
 					//st.executeUpdate("create table menuv1"+"(  Day varchar(10),Gravy varchar(30),Dry_veg varchar(30) , Chapati varchar(20), Sides varchar(30), Rice  varchar(30),Special varchar(30))");
 
 					break;
 				case 2:
-					category="Non-Vegetarian";
+					category="Non-Veg";
 					st.executeQuery("create table menunv" +providerno+"( Day varchar(10),Gravy varchar(30),Dry_veg varchar(30) , Chapati varchar(20), Sides varchar(30), Rice  varchar(30),Special varchar(30))");
 					break;
 				case 3:
@@ -257,7 +257,7 @@ class Customer extends Details
 {
 	private int catg;
 	private int providerno;
-	private String tiffin;			//Single/Monthly tiffin
+	private int tiffin;			//Single/Monthly tiffin
 	private int quantity; 				//No of tiffins
 	//Add location and time
 	Customer()
@@ -274,23 +274,25 @@ class Customer extends Details
 	void acceptcust(Scanner sc)
 	{ 
 		super.accept(sc,0);
-		System.out.println("Enter category of your food :\n\t1.Vegetarian\n\t2.Non-Vegetarian\n\t3.Both\n\t0.Exit");
-		int catg=sc.nextInt();
+	
 	}
 	void selecprovider(Scanner sc,Statement stmt,PriorityQueue<Provider> p)
 	{
+		System.out.println("Enter category of your food :\n\t1.Vegetarian\n\t2.Non-Vegetarian\n\t3.Both\n\t0.Exit");
+		catg=sc.nextInt();
 		try
 		{
 			ResultSet rs=null;
 			if(catg==1)
 			{
 				int flag=0;
-				String q="select name,business,rating from provdetails where category = 'Veg' ";
+				
+				String q="select name,business from provdetails where category = 'Veg' ";
 				rs=stmt.executeQuery(q);
 				while(rs.next())
 				{
-					rs.getString(1);
-					rs.getString(2);
+					System.out.println(rs.getString(1));
+					System.out.println(rs.getString(2));
 					flag=1;
 				}
 				if(flag==0)
@@ -301,12 +303,13 @@ class Customer extends Details
 			else if(catg==2)
 			{
 				int flag=0;
+				
 				String q="select name,business from provdetails where category = 'Nonveg' ";
 				rs=stmt.executeQuery(q);
 				while(rs.next())
 				{
-					rs.getString(1);
-					rs.getString(2);
+					System.out.println(rs.getString(1));
+					System.out.println(rs.getString(2));
 					flag=1;
 				}
 				if(flag==0)
@@ -316,10 +319,12 @@ class Customer extends Details
 			}
 			else{
 				rs=stmt.executeQuery("select name,business from provdetails");
+				
+				providerno=sc.nextInt();
 				while(rs.next())
 				{
-					rs.getString(1);
-					rs.getString(2);
+					System.out.println("name "+rs.getString(1));
+					System.out.println("business"+rs.getString(2));
 				}
 			}
 			do
@@ -327,16 +332,17 @@ class Customer extends Details
 				System.out.println("Enter quantity");
 				quantity=sc.nextInt();
 			}while(quantity<=0);
+			System.out.println("Above is the list of provider details ::Please Enter which providerno you want to select ");
 		}
 		catch(Exception e)
 		{
 			System.out.println("Exception");
 		}
 		//display respective providers menu
-		System.out.println("\t Enter your choice  \n \t Single tiffin \n \t Monthly tiffin");
-		tiffin=sc.nextLine();
-		System.out.println("Above is the list of provider details ::Please Enter which providerno you want to select ");
-		providerno=sc.nextInt();
+		System.out.println("\t Enter your choice  \n \t 1.Single tiffin \n \t 2.Monthly tiffin");
+		sc.nextLine();
+		tiffin=sc.nextInt();
+		
 
 	}
 
@@ -355,24 +361,35 @@ class Customer extends Details
 				System.out.println(rs.getString(2));
 			}
 			System.out.println("-------------------------------------");
-			System.out.println();
 			System.out.println("Bill no"+bno);
 			bno++;
 			Calendar calendar = Calendar.getInstance();
 			System.out.println(calendar.getTime());
 			System.out.println("-------------------------------------");
-			System.out.println("Item name\t\t Qty\tPrices\tValue");
-			rs=stmt.executeQuery("select sprice from provdetails where pno="+providerno);
+			System.out.println("Item name\t\t Qty\tPrice\tValue");
+			String tiff;
+			if(tiffin==1)
+			{
+				rs=stmt.executeQuery("select scost from provdetails where pno="+providerno);
+				tiff="Single Tiffin";
+			}
+			else
+			{
+				rs=stmt.executeQuery("select mcost from provdetails where pno="+providerno);
+				tiff="Monthly tiffin";
+			}
 			while(rs.next())
 			{
 				price=rs.getDouble(1);
 			}
-			System.out.println(tiffin+"\t\t"+quantity+"\t"+price+"\t"+(quantity*price));
+			
+			
+			System.out.println(tiff+"\t\t"+quantity+"\t"+price+"\t"+(quantity*price));
 			System.out.println("Delivery charges:");
 			System.out.println("Total amount Incl of All taxes:");
 			System.out.println("-------------------------------------");
-			System.out.println("\t\tThank you for your purchase");
-			System.out.println("\t\tHave a nice day!");
+			System.out.println("\tThank you for your purchase");
+			System.out.println("\tHave a nice day!");
 		}
 		catch(Exception e)
 		{
@@ -438,7 +455,7 @@ public class FoodDelivery {
 
 			System.out.println("3sfgv");
 
-			Connection con=DriverManager.getConnection(url,"root","Archanasanjeev@99");
+			Connection con=DriverManager.getConnection(url,"root","abcd1234");
 
 			Statement stmt=con.createStatement();
 
@@ -587,7 +604,7 @@ public class FoodDelivery {
 
 							break;
 						case 2:
-							
+							c.bill(stmt);
 							//provider in acceptcust function
 
 							break;

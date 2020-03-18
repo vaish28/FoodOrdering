@@ -12,14 +12,15 @@ enum menuItems
 }
 class Menu
 {
-	void acceptMenu(Scanner sc,Statement stmt)
+	void acceptMenu(Scanner sc,Statement stmt , int flag,int provno )
 	{
 		sc.nextLine();
 		days d[]=days.values();
 		menuItems m[]=menuItems.values();
-		for(int i=0;i<8;i++)
+		for(int i=0;i<7;i++)
 		{
-			String fitem="";
+			String fitem0="";
+			String fitem1="";
 			System.out.println("For "+d[i]);
 			try
 				{
@@ -31,50 +32,54 @@ class Menu
 						item=sc.nextLine();
 						if(j<5)
 						{
-							fitem=fitem+"'"+item+"',";
+							fitem0=fitem0+"'"+item+"',";
+							fitem1=fitem1+m[j]+"='"+item+"'and ";
 						}
 						else
-							fitem=fitem+"'"+item+"'";
-						
-						
-						
+						{
+							fitem0=fitem0+"'"+item+"'";
+							fitem1=fitem1+m[j]+"='"+item+"'";
+						}
 					}
-					System.out.println("String is"+fitem);
-					stmt.executeUpdate("insert into menu values (1,'Monday',"+fitem+")");
+					System.out.println("String is"+fitem0);
+					if(flag == 0)
+					{
+						
+					stmt.executeUpdate("insert into menu values (5,'Monday',"+fitem0+")");
+					}
+					else if(flag == 1)
+					{
+						System.out.print("2nd exception");
+						stmt.executeUpdate("update menu set"+fitem1+"where pno="+provno);
+					}
 				}
 				catch(Exception e)
 				{
-					System.out.println("Exception"+e);
+					
+					System.out.println("11Exception"+e);
 				}
 		}
-/*		catmenu=catm;
-		do
-		{
-
-			System.out.println("Enter cost per tiffin: ");
-			tcost=sc.nextDouble();
-			if(tcost<0)
-			{
-				System.out.println("Please enter valid cost!");
-			}
-		}while(tcost<0);
-		System.out.println("Enter monthly cost : ");
-		moncost=sc.nextDouble();
-		*/
 	}
 	
-	void update(Scanner sc,Statement st)
+	void updateEntire(Scanner sc , Statement st, int provno)
+	{
+		acceptMenu(sc,st,1,provno);
+		System.out.println("Entire menu updated!!");
+		
+	}
+	void updatespecific(Scanner sc,Statement st,int provno)
 	{
 		System.out.println("Enter which day to update menu");
 		String day=sc.next();
-		int i,j;
+		int j;
 		menuItems m[]=menuItems.values();
 		for(j=1;j<=6;j++)
 		{
-			System.out.println(m[j]);
+			System.out.println(j+". "+m[j]);
 		}
-		System.out.println("Enter which item out of the above to update::");
-		String mi=sc.nextLine();
+		System.out.println("Enter which item number out of the above to update::");
+		int n=sc.nextInt();
+		String mi=m[n].toString();
 		System.out.println("Enter older item :");
 		String old=sc.nextLine();
 		
@@ -83,7 +88,7 @@ class Menu
 		//write query
 		try{
 		
-		st.executeUpdate("update menu set "+mi+"="+it+" where "+mi+"="+old+" and Day="+day+" and pno=1");
+		st.executeUpdate("update menu set "+mi+"="+it+" where "+mi+"="+old+" and Day="+day+" and pno="+provno);
 		System.out.println("Menu updated!!");
 		}
 		catch(Exception e)
@@ -93,7 +98,6 @@ class Menu
 		
 
 	}
-	
 }
 class Details
 {
@@ -170,7 +174,7 @@ class Provider extends Details
 		int choice=0;
 		try
 		{
-			st.executeQuery("Use dabewala");
+			//st.executeQuery("Use dabewala");
 			do
 			{
 				System.out.println("Enter category of your food :\n\t1.Vegetarian\n\t2.Non-Vegetarian\n\t3.Both\n\t0.Exit");
@@ -179,7 +183,7 @@ class Provider extends Details
 				{
 				case 1:
 					category="Vegetarian";
-					mm.acceptMenu(sc,st);
+					mm.acceptMenu(sc,st,0,0);
 					//st.executeUpdate("create table menuv1"+"(  Day varchar(10),Gravy varchar(30),Dry_veg varchar(30) , Chapati varchar(20), Sides varchar(30), Rice  varchar(30),Special varchar(30))");
 				
 					break;
@@ -203,7 +207,7 @@ class Provider extends Details
 		}
 		catch(Exception e)
 		{
-			System.out.println("Exception");
+			System.out.println("Exception2"+e);
 		}
 		do
 		{
@@ -227,48 +231,14 @@ class Provider extends Details
 		}while(moncost<0);
 
 	}
-	void upmen(Scanner sc,Statemnet stmt)
+	void upmen(Scanner sc,Statement stmt,int provno)
 	{
-		mm.update(sc,stmt);
+		mm.updatespecific(sc,stmt,provno);
 	}
-/*
-	void updateMENU(Scanner sc)
+	void upmenentire(Scanner sc,Statement stmt,int provno)
 	{
-		if(category.equals("Vegetarian") || category.equals("Non-Vegeterian"))
-		{
-			promenu[0].update(sc);
-		}
-		else
-		{
-			int men=0;
-			do
-			{
-				System.out.println("\tEnter the menu type you want to update. ");
-
-				System.out.println("\n\t1.Vegetarian\n\t2.Non-Vegeterian");
-
-				men  = sc.nextInt();
-				if(men == 1)
-				{
-					promenu[0].update(sc);
-				}
-				else
-				{
-					if(men == 2 )
-					{
-						promenu[1].update(sc);
-					}
-					else
-					{
-						System.out.println("Please enter valid choice");
-					}
-				}
-
-			}while(men<1 || men >2);
-
-		}
-
-	}*/
+		mm.updateEntire(sc, stmt, provno);
+	}
 }
 
 class Customer extends Details
@@ -420,96 +390,84 @@ class DeliveryGuy extends Details
 public class FoodDelivery {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		Scanner sc=new Scanner(System.in);
-		/*int n;
-		System.out.println("Enter number of providers");
-		n=sc.nextInt();
-		Provider p= new  Provider();
-		for(int i=0;i<n;i++)
-		{
-			p[i]=new Provider();
-			p[i].acceptProDetails(sc);
-		}
-		 */
 		int ch,ch1=0,ch2=0;
-		//System.out.println(days.values());
-		//System.out.println("Index of 0 is: "+days.valueOf(0).ordinal());  
+
+
+		long tele;
+
 		try {
 			ResultSet rs=null;
 			//			System.out.println("1");
 			Class.forName("com.mysql.jdbc.Driver");
+
 			System.out.println("2sfgv");
+
 			String url=("jdbc:mysql://localhost/dabewala");
+
 			System.out.println("3sfgv");
+
 			Connection con=DriverManager.getConnection(url,"root","abcd1234");
+
 			Statement stmt=con.createStatement();
+
 			System.out.println("driver loaded");
 
 			do{
-				System.out.println("\t\tMenu");
-				System.out.println("\t1.Add Provider\n\t2.Add Customer\n\t0.Exit\nEnter choice");
+
+				System.out.println("\tAre you a ....");
+				System.out.println("\t1.Provider\n\t2.Customer\n\t0.Exit :( \nEnter choice");
 				ch=sc.nextInt();
 				int flag=0;
 				switch(ch)
 				{
 				case 1:
-					flag=1;
+					
+					Provider p = new Provider();
+					System.out.println(" \t\tRegister / Login");
+
+					System.out.println("Enter mobile number");
+					tele=sc.nextLong();
+					String q="select pno from provdetails where telno = "+tele+"";
+					rs=stmt.executeQuery(q);
+					if(rs.next()==false)
+					{
+						
+						p.acceptProDetails(sc);
+						String str1=p.getprovquery();
+						stmt.executeUpdate("insert into provdetails "+"values("+str1+")");
+						System.out.println("Registered successfully!");
+						p.acceptmenu(sc,stmt);
+					}
+					else
+					{
+						System.out.print("Logged in successfully");
+					}
+
 					do{
-						System.out.println("\n\t\tMenu\n\t1.Register/Login\n\t2.Update menu\n\t0.Exit");
-						ch2=sc.nextInt();
+						do {
+							System.out.println("\n\t\1.Update entire menu\n\t2. Update an item from the menu\n\t0.Exit");
+
+							ch2=sc.nextInt();
+							if(ch2 > 3 || ch2 < 0)
+							{
+								System.out.println("Please enter valid option");
+							}
+
+						}while(ch2 > 3 || ch2 < 0);
+
 						switch(ch2)
 						{
+						
 						case 1:
-							long tele;
-							System.out.println("Enter mobile number");
-							tele=sc.nextLong();
-							String q="select name,business from provdetails where telno = "+tele+"";
-							rs=stmt.executeQuery(q);
-							if(rs.next()==false)
-							{
-								Provider p = new Provider();
-								p.acceptProDetails(sc);
-								String str1=p.getprovquery();
-								stmt.executeUpdate("insert into provdetails "+"values("+str1+")");
-								System.out.println("Registered successfully!");
-								p.acceptmenu(sc,stmt);
-							}
-							else
-							{
-								System.out.print("Logged in successfully");
-							}
-							/*Calendar calendar = Calendar.getInstance();
-							int day=calendar.get(Calendar.DAY_OF_WEEK);
-							if(day==1)
-							{
-								System.out.println("Its Monday!!Do you want to change the Menu\n(1.YES 2.NO)");
-								int cho;
-								do
-								{
-									cho=sc.nextInt();
-									if(cho==1)
-									{
-										//change;
-									}
-									else if(cho<1 || cho>2)
-									{
-										System.out.println("Invalid choice");
-									}
-								}while(cho<1 || cho>2);
-							}*/
+							//updating entire menu
+							p.upmenentire(sc, stmt,3);
 							break;
 
 						case 2:
-							if(flag!=1)
-							{
-								System.out.println("Register/Log in first");
-							}
-							else{
-								p.upmen(sc,stmt);
-							}
-							//stmt.modify()
+							
+							p.upmen(sc, stmt,1);
 							break;
 
 						case 0:
@@ -524,25 +482,53 @@ public class FoodDelivery {
 
 					break;
 
-				case 2:
+				case 2: // customer
+
+					System.out.println("Register / Login");
+					System.out.println("Enter mobile number");
+					tele=sc.nextLong();
+					q="select id from custdetails where teleno = "+tele+"";
+					rs=stmt.executeQuery(q);
+					if(rs.next()==false)
+					{
+						Customer c=new Customer();
+						c.acceptcust(sc,stmt);
+						String str=c.sqlquery();
+						stmt.executeUpdate("insert into custdetails "+"values("+str+")");
+						System.out.println("Registered successfully!");
+
+					}
+					else
+					{
+						System.out.print("Logged in successfully");
+					}
+
+
 					do{
-						System.out.println("\n\t\tMenu\n\t1.Register\n\t2.Select provider\n\t0.Exit");
-						ch1 = sc.nextInt();
+						
+						do {
+							
+							System.out.println("\n\t\tMenu\n\t1.Select provider\n\t2.Post ratings\n\t 0.Exit");
+							
+							ch1 = sc.nextInt();
+						
+						}while(ch1>2 || ch1<0);
+
 						switch(ch1)
 						{
 						case 1:
 
 							//need to change the acceptcust function
-							Customer c=new Customer();
-							c.acceptcust(sc,stmt);
-							String str=c.sqlquery();
-							stmt.executeUpdate("insert into custdetails "+"values("+str+")");
 
 							break;
 						case 2:
 
 							//provider in acceptcust function
 
+							break;
+
+						case 3:
+							//ratings
 							break;
 
 						default:
@@ -556,6 +542,7 @@ public class FoodDelivery {
 				default:
 					System.out.println("Please enter valid choice");
 					break;
+
 				case 0:
 					System.out.println("Thank you!");
 					break;
@@ -566,7 +553,7 @@ public class FoodDelivery {
 		}
 		catch(Exception e)
 		{
-			System.out.println("e");
+			System.out.println("exception"+e);
 		}
 
 	}

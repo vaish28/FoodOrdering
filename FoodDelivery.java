@@ -1,4 +1,4 @@
-
+package fooddelivery;
 import java.util.*;
 import java.sql.*;
 
@@ -18,7 +18,7 @@ class Menu
 		sc.nextLine();
 		days d[]=days.values();
 		menuItems m[]=menuItems.values();
-		for(int i=0;i<8;i++)
+		for(int i=0;i<7;i++)
 		{
 			String fitem0="";
 			String fitem1="";
@@ -34,25 +34,32 @@ class Menu
 						if(j<5)
 						{
 							fitem0=fitem0+"'"+item+"',";
-							fitem1=fitem1+m[j]+"='"+item+"',";
+							fitem1=fitem1+m[j]+"='"+item+"', ";
 						}
 						else
+						{
 							fitem0=fitem0+"'"+item+"'";
 							fitem1=fitem1+m[j]+"='"+item+"'";
+						}
 					}
-					//System.out.println("String is"+fitem0)
+					//System.out.println("String is"+fitem0);
+					//System.out.println("String 2 is"+fitem1);
 					if(flag == 0)
 					{
-					stmt.executeUpdate("insert into menu values (1,'Monday',"+fitem0+")");
+						
+					stmt.executeUpdate("insert into menu values (7,'"+d[i]+"',"+fitem0+")");
 					}
 					else if(flag == 1)
 					{
-						stmt.executeUpdate("update menu set"+fitem1+"where pno="+provno);
+						String s="update menu set "+fitem1+" where Day='"+d[i]+"'and pno=7";
+						
+						stmt.executeUpdate(s);
 					}
 				}
 				catch(Exception e)
 				{
-					System.out.println("Exception"+e);
+					
+					System.out.println("11Exception"+e);
 				}
 		}
 	}
@@ -65,17 +72,24 @@ class Menu
 	}
 	void updatespecific(Scanner sc,Statement st,int provno)
 	{
-		System.out.println("Enter which day to update menu");
-		String day=sc.next();
+		days s[]=days.values();
+		for(int i=0;i<6;i++)
+		{
+			System.out.println((i+1)+". "+s[i]);
+		}
+		System.out.println("Enter which day number to update menu");
+		int da=sc.nextInt();
+		String day=s[da-1].toString();
 		int j;
 		menuItems m[]=menuItems.values();
-		for(j=1;j<=6;j++)
+		for(j=0;j<6;j++)
 		{
-			System.out.println(j+". "+m[j]);
+			System.out.println((j+1)+". "+m[j]);
 		}
 		System.out.println("Enter which item number out of the above to update::");
 		int n=sc.nextInt();
-		String mi=m[n].toString();
+		String mi=m[n-1].toString();
+		sc.nextLine();
 		System.out.println("Enter older item :");
 		String old=sc.nextLine();
 		
@@ -83,8 +97,9 @@ class Menu
 		String it=sc.nextLine();
 		//write query
 		try{
-		
-		st.executeUpdate("update menu set "+mi+"="+it+" where "+mi+"="+old+" and Day="+day+" and pno="+provno);
+		String str="update menu set "+mi+"='"+it+"' where Day='"+day+"' and pno=7";
+		System.out.println(str);
+		st.executeUpdate(str);
 		System.out.println("Menu updated!!");
 		}
 		catch(Exception e)
@@ -170,7 +185,7 @@ class Provider extends Details
 		int choice=0;
 		try
 		{
-			st.executeQuery("Use dabewala");
+			//st.executeQuery("Use dabewala");
 			do
 			{
 				System.out.println("Enter category of your food :\n\t1.Vegetarian\n\t2.Non-Vegetarian\n\t3.Both\n\t0.Exit");
@@ -203,7 +218,7 @@ class Provider extends Details
 		}
 		catch(Exception e)
 		{
-			System.out.println("Exception");
+			System.out.println("Exception2"+e);
 		}
 		do
 		{
@@ -404,7 +419,7 @@ public class FoodDelivery {
 
 			System.out.println("3sfgv");
 
-			Connection con=DriverManager.getConnection(url,"root","abcd1234");
+			Connection con=DriverManager.getConnection(url,"root","Archanasanjeev@99");
 
 			Statement stmt=con.createStatement();
 
@@ -434,7 +449,7 @@ public class FoodDelivery {
 						String str1=p.getprovquery();
 						stmt.executeUpdate("insert into provdetails "+"values("+str1+")");
 						System.out.println("Registered successfully!");
-
+						p.acceptmenu(sc,stmt);
 					}
 					else
 					{
@@ -443,7 +458,7 @@ public class FoodDelivery {
 
 					do{
 						do {
-							System.out.println("\n\t\1.Accept menu\n\t2.Update entire menu\n\t3. Update an item from the menu\n\t0.Exit");
+							System.out.println("\n\t\1.Update entire menu\n\t2. Update an item from the menu\n\t0.Exit");
 
 							ch2=sc.nextInt();
 							if(ch2 > 3 || ch2 < 0)
@@ -455,20 +470,15 @@ public class FoodDelivery {
 
 						switch(ch2)
 						{
+						
 						case 1:
-							//accepting entire menu
-							p.acceptmenu(sc,stmt);
-							System.out.println();
-
+							//updating entire menu
+							p.upmenentire(sc, stmt,3);
 							break;
 
 						case 2:
-							//updating entire menu
-							p.upmenentire(sc, stmt, rs.getInt(1));
-							break;
-
-						case 3:
-							p.upmen(sc, stmt,rs.getInt(1));
+							
+							p.upmen(sc, stmt,1);
 							break;
 
 						case 0:
@@ -484,9 +494,6 @@ public class FoodDelivery {
 					break;
 
 				case 2: // customer
-
-
-
 
 					System.out.println("Register / Login");
 					System.out.println("Enter mobile number");
@@ -557,7 +564,7 @@ public class FoodDelivery {
 		}
 		catch(Exception e)
 		{
-			System.out.println("e");
+			System.out.println("exception"+e);
 		}
 
 	}

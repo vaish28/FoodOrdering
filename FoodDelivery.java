@@ -46,7 +46,6 @@ class Menu
 				//System.out.println("String 2 is"+fitem1);
 				if(flag == 0)
 				{
-
 					stmt.executeUpdate("insert into menu values (7,'"+d[i]+"',"+fitem0+")");
 				}
 				else if(flag == 1)
@@ -98,7 +97,7 @@ class Menu
 		//write query
 		try{
 			String str="update menu set "+mi+"='"+it+"' where Day='"+day+"' and pno=7";
-			System.out.println(str);
+			//System.out.println(str);
 			st.executeUpdate(str);
 			System.out.println("Menu updated!!");
 		}
@@ -180,13 +179,12 @@ class Provider extends Details
 		String str=id+",'"+name+"','"+service+"',"+teleno+",'"+address+"','"+category+"',"+tcost+","+moncost;
 		return str;
 	}
-
+	
 	void acceptmenu(Scanner sc,Statement st)
 	{
 		int choice=0;
 		try
 		{
-			//st.executeQuery("Use dabewala");
 			do
 			{
 				System.out.println("Enter category of your food :\n\t1.Vegetarian\n\t2.Non-Vegetarian\n\t3.Both\n\t0.Exit");
@@ -201,7 +199,7 @@ class Provider extends Details
 					break;
 				case 2:
 					category="Non-Veg";
-					st.executeQuery("create table menunv" +providerno+"( Day varchar(10),Gravy varchar(30),Dry_veg varchar(30) , Chapati varchar(20), Sides varchar(30), Rice  varchar(30),Special varchar(30))");
+					//st.executeQuery("create table menunv" +providerno+"( Day varchar(10),Gravy varchar(30),Dry_veg varchar(30) , Chapati varchar(20), Sides varchar(30), Rice  varchar(30),Special varchar(30))");
 					break;
 				case 3:
 					category="Both";
@@ -273,7 +271,7 @@ class Customer extends Details
 	}
 	void acceptcust(Scanner sc)
 	{ 
-		super.accept(sc,0);
+		super.accept(sc,1);
 	
 	}
 	void selecprovider(Scanner sc,Statement stmt,PriorityQueue<Provider> p)
@@ -282,18 +280,31 @@ class Customer extends Details
 		catg=sc.nextInt();
 		try
 		{
+			
 			ResultSet rs=null;
 			if(catg==1)
 			{
 				int flag=0;
 				
-				String q="select name,business from provdetails where category = 'Veg' ";
+				String q="select pno,name,business,ratings from provdetails where category = 'Veg' ";
 				rs=stmt.executeQuery(q);
 				while(rs.next())
 				{
-					System.out.println(rs.getString(1));
-					System.out.println(rs.getString(2));
+					Provider pro=new Provider();
+					p.comparator();
+					pro.id=rs.getInt(1);
+					pro.name=rs.getString(2);
+					pro.service=rs.getString(3);
+					pro.rating=rs.getInt(4);
+					p.add(pro);
 					flag=1;
+				}
+				System.out.println("Provider_no\tName\tBusiness\tRating");
+				while(!p.isEmpty())
+				{
+					Provider p1=new Provider();
+					p1=p.remove();
+					System.out.println(p1.providerno+"\t\t"+p1.name+"\t"+p1.service+"\t\t"+p1.rating);
 				}
 				if(flag==0)
 				{
@@ -327,12 +338,13 @@ class Customer extends Details
 					System.out.println("business"+rs.getString(2));
 				}
 			}
+			System.out.println("Above is the list of provider details ::Please Enter which providerno you want to select ");
 			do
 			{
 				System.out.println("Enter quantity");
 				quantity=sc.nextInt();
 			}while(quantity<=0);
-			System.out.println("Above is the list of provider details ::Please Enter which providerno you want to select ");
+			
 		}
 		catch(Exception e)
 		{
@@ -455,7 +467,7 @@ public class FoodDelivery {
 
 			System.out.println("3sfgv");
 
-			Connection con=DriverManager.getConnection(url,"root","abcd1234");
+			Connection con=DriverManager.getConnection(url,"root","Archanasanjeev@99");
 
 			Statement stmt=con.createStatement();
 
@@ -552,6 +564,7 @@ public class FoodDelivery {
 					PriorityQueue<Provider> pr=new PriorityQueue<Provider>(2,r);
 					do
 					{
+						flag=0;
 						try{
 							System.out.println("Enter mobile number  :");
 							tele=sc.nextLong();

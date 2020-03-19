@@ -1,4 +1,4 @@
-package FoodDelivery;
+package fooddelivery;
 import java.util.*;
 import java.sql.*;
 
@@ -126,18 +126,18 @@ class Menu
 		System.out.println();
 		try
 		{
-		ResultSet rs = stmt.executeQuery("select * from menu where pno = provno" );
+		ResultSet rs = stmt.executeQuery("select * from menu where pno = 7" );
 		int cnt =0;
 		while(rs.next())
 		{
-			System.out.print(d[cnt]);
+			System.out.print(d[cnt]+"\t");
 			cnt++;
 			for(int i=0;i<m.length;i++)
 			{
 				String key = m[i].toString();
 				String val = rs.getString(key);
 				System.out.print(val);
-				System.out.print("    ");
+				System.out.print("\t");
 			}
 			System.out.println();
 		}
@@ -299,7 +299,7 @@ class Provider extends Details
 		double monthlycost = sc.nextDouble();
 		try
 		{
-		stmt.executeUpdate("update provdetails set tcost = "+totalcost+ ", moncost = "+monthlycost+" where pno = provno");
+		stmt.executeUpdate("update provdetails set scost = "+totalcost+ ", mcost = "+monthlycost+" where pno = 7");
 		System.out.println("Cost updated successfuly!!");
 		}
 		catch(Exception e)
@@ -523,7 +523,7 @@ public class FoodDelivery {
 
 			System.out.println("3sfgv");
 
-			Connection con=DriverManager.getConnection(url,"root","abcd1234");
+			Connection con=DriverManager.getConnection(url,"root","Archanasanjeev@99");
 
 			Statement stmt=con.createStatement();
 

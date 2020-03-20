@@ -1,3 +1,4 @@
+package fooddelivery;
 import java.util.*;
 import java.sql.*;
 
@@ -35,7 +36,7 @@ class Customer extends Details
 			{
 				int flag=0;
 				
-				String q="select pno,name,business,ratings from provdetails where category = 'Veg' ";
+				String q="select pno,name,business,rating from provdetails where category = 'Veg' ";
 				rs=stmt.executeQuery(q);
 				while(rs.next())
 				{

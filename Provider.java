@@ -1,3 +1,4 @@
+package fooddelivery;
 import java.util.*;
 import java.sql.*;
 
@@ -7,6 +8,7 @@ class Provider extends Details
 	String service;   //name of the business
 	double tcost;
 	double moncost;
+	//int providerno=0;
 	int rating=0;
 	Menu mm=new Menu();
 	//Add star rating in the table
@@ -43,7 +45,6 @@ class Provider extends Details
 					category="Veg";
 					mm.acceptMenu(sc,st,0,0);
 					//st.executeUpdate("create table menuv1"+"(  Day varchar(10),Gravy varchar(30),Dry_veg varchar(30) , Chapati varchar(20), Sides varchar(30), Rice  varchar(30),Special varchar(30))");
-
 					break;
 				case 2:
 					category="Non-Veg";

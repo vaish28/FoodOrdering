@@ -5,7 +5,7 @@ import java.sql.*;
 class Customer extends Details
 {
 	private int catg;
-	private int providerno;
+	private int providerno;   // for selecting the provider number from the displayed list 
 	private int tiffin;			//Single/Monthly tiffin
 	private int quantity; 				//No of tiffins
 	//Add location and time
@@ -30,12 +30,12 @@ class Customer extends Details
 		catg=sc.nextInt();
 		try
 		{
-			
+
 			ResultSet rs=null;
 			if(catg==1)
 			{
 				int flag=0;
-				
+
 				String q="select pno,name,business,rating from provdetails where category = 'Veg' ";
 				rs=stmt.executeQuery(q);
 				while(rs.next())
@@ -64,7 +64,7 @@ class Customer extends Details
 			else if(catg==2)
 			{
 				int flag=0;
-				
+
 				String q="select name,business from provdetails where category = 'Nonveg' ";
 				rs=stmt.executeQuery(q);
 				while(rs.next())
@@ -80,8 +80,8 @@ class Customer extends Details
 			}
 			else{
 				rs=stmt.executeQuery("select name,business from provdetails");
+
 				
-				providerno=sc.nextInt();
 				while(rs.next())
 				{
 					System.out.println("name "+rs.getString(1));
@@ -89,12 +89,14 @@ class Customer extends Details
 				}
 			}
 			System.out.println("Above is the list of provider details ::Please Enter which providerno you want to select ");
+			providerno=sc.nextInt();
+			
 			do
 			{
 				System.out.println("Enter quantity");
 				quantity=sc.nextInt();
 			}while(quantity<=0);
-			
+
 		}
 		catch(Exception e)
 		{
@@ -104,7 +106,34 @@ class Customer extends Details
 		System.out.println("\t Enter your choice  \n \t 1.Single tiffin \n \t 2.Monthly tiffin");
 		sc.nextLine();
 		tiffin=sc.nextInt();
-		
+
+		int confirm=0;
+		do
+		{
+			System.out.println("\tDo you want to place the order ? \n\t 1. Yes, Go ahead! \n\t2.No :(");
+			confirm = sc.nextInt();
+			if(confirm > 2 || confirm < 1)
+			{
+				System.out.println("Oops! Please enter a valid choice!");
+			}
+		}while(confirm > 2 || confirm < 1);
+
+
+		if(confirm == 1)
+		{
+			System.out.println("Order placed successfully!");
+			this.bill(stmt);
+			this.rating(sc, stmt);
+
+		}
+		else
+		{
+			System.out.println("Order was not placed!");
+		}
+
+
+
+
 
 	}
 
@@ -134,6 +163,7 @@ class Customer extends Details
 			{
 				rs=stmt.executeQuery("select scost from provdetails where pno="+providerno);
 				tiff="Single Tiffin";
+				
 			}
 			else
 			{
@@ -144,8 +174,8 @@ class Customer extends Details
 			{
 				price=rs.getDouble(1);
 			}
-			
-			
+
+
 			System.out.println(tiff+"\t\t"+quantity+"\t"+price+"\t"+(quantity*price));
 			System.out.println("Delivery charges:");
 			System.out.println("Total amount Incl of All taxes:");
@@ -158,21 +188,21 @@ class Customer extends Details
 			System.out.println("Exception");
 		}
 	}
-	 void rating(Scanner sc,Statement stmt)
-	 {
-		 System.out.println("Please enter your star ratings for the provider");
-		 System.out.println("Enter 1 , 2, 3, 4, or 5 for respective star rating");
-		 int rating=sc.nextInt();
-		 String str2=Integer.toString(rating);
-		 try
-		 {
-			 stmt.executeUpdate("insert into provdetails "+"values("+str2+")");
-		 }
-		 catch(Exception e)
-		 {
-			 System.out.println("e");
-		 }
-		 System.out.println("Thank for your reviews");
-	 }
+	void rating(Scanner sc,Statement stmt)
+	{
+		System.out.println("Please enter your star ratings for the provider");
+		System.out.println("Enter 1 , 2, 3, 4, or 5 for respective star rating");
+		int rating=sc.nextInt();
+		String str2=Integer.toString(rating);
+		try
+		{
+			stmt.executeUpdate("insert into provdetails "+"values("+str2+")");
+		}
+		catch(Exception e)
+		{
+			System.out.println("e");
+		}
+		System.out.println("Thank for your reviews");
+	}
 
 }

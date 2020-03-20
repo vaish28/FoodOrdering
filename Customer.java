@@ -53,7 +53,7 @@ class Customer extends Details
 				{
 					Provider p1=new Provider();
 					p1=p.remove();
-					System.out.println(p1.providerno+"\t\t"+p1.name+"\t"+p1.service+"\t\t"+p1.rating);
+					System.out.println(p1.id+"\t\t"+p1.name+"\t"+p1.service+"\t\t"+p1.rating);
 				}
 				if(flag==0)
 				{

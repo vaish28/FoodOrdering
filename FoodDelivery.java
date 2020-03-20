@@ -29,6 +29,7 @@ public class FoodDelivery {
 				System.out.println("\t1.Provider\n\t2.Customer\n\t0.Exit : \nEnter choice");
 				ch=sc.nextInt();
 				int flag=0;
+				int pno=0;
 				switch(ch)
 				{
 				case 1:
@@ -70,7 +71,11 @@ public class FoodDelivery {
 					{
 						System.out.print("Logged in successfully");
 					}
-
+					rs=stmt.executeQuery(q);
+					while(rs.next())
+					{
+						pno=rs.getInt(1);
+					}
 					do{
 						do {
 							System.out.println("\n\t\1.Update entire menu\n\t2. Update an item from the menu\n\t0.Exit");
@@ -88,13 +93,13 @@ public class FoodDelivery {
 
 						case 1:
 							//updating entire menu
-							p.upmenentire(sc, stmt,3);
+							p.upmenentire(sc, stmt,pno);
 							p.displayMENUcall(stmt);
 							break;
 
 						case 2:
 
-							p.upmen(sc, stmt,1);
+							p.upmen(sc, stmt,pno);
 							break;
 
 						case 0:

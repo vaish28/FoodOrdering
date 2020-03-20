@@ -44,11 +44,11 @@ class Menu
 				//System.out.println("String 2 is"+fitem1);
 				if(flag == 0)
 				{
-					stmt.executeUpdate("insert into menu values (7,'"+d[i]+"',"+fitem0+")");
+					stmt.executeUpdate("insert into menu values (provno,'"+d[i]+"',"+fitem0+")");
 				}
 				else if(flag == 1)
 				{
-					String s="update menu set "+fitem1+" where Day='"+d[i]+"'and pno=7";
+					String s="update menu set "+fitem1+" where Day='"+d[i]+"'and pno="+provno;
 
 					stmt.executeUpdate(s);
 				}

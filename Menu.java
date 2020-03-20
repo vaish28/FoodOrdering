@@ -94,7 +94,7 @@ class Menu
 		String it=sc.nextLine();
 		//write query
 		try{
-			String str="update menu set "+mi+"='"+it+"' where Day='"+day+"' and pno=7";
+			String str="update menu set "+mi+"='"+it+"' where Day='"+day+"' and pno="+provno;
 			//System.out.println(str);
 			st.executeUpdate(str);
 			System.out.println("Menu updated!!");

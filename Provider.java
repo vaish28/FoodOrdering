@@ -25,7 +25,7 @@ class Provider extends Details
 	String getprovquery(long tele)
 	{
 		teleno=tele;
-		String str=id+",'"+name+"','"+service+"',"+teleno+",'"+address+"','"+category+"',"+tcost+","+moncost;
+		String str="pno,'"+name+"','"+service+"',"+teleno+",'"+address+"','"+category+"',"+tcost+","+moncost+","+rating;
 		return str;
 	}
 	

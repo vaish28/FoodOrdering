@@ -141,9 +141,10 @@ public class FoodDelivery {
 
 					q="select regno from custdetails where telno = "+tele+"";
 					rs=stmt.executeQuery(q);
-					
+
 					if(rs.next()==false)
 					{
+
 						c.acceptcust(sc);
 						String str=c.sqlquery();
 						stmt.executeUpdate("insert into custdetails "+"values("+str+")");
@@ -158,35 +159,23 @@ public class FoodDelivery {
 
 					do{
 
-						do {
+						c.selecprovider(sc, stmt, pr);
 
-							System.out.println("\n\t\tMenu\n\t1.Select provider and place order\n\t2.Bill\n\t 0.Exit");
+						do
+						{
+
+							System.out.println("\tDo you want to place another order?\n\t1.Yes \n\t2.No");
 
 							ch1 = sc.nextInt();
 
-						}while(ch1>2 || ch1<0);
+						}while(ch1>2 || ch1<1);
 
-						switch(ch1)
-						{
-						case 1:
-							c.selecprovider(sc, stmt, pr);
-							break;
-						case 2:
-							c.bill(stmt);
-							break;
 
-						case 0:
-							System.out.println("Thank you!!");
-							break;
-
-						default:
-							System.out.println("Please enter valid choice");
-							break;
-						}
-					}while(ch1!=0);
+					}while(ch1!=2);
 
 
 					break;
+
 				default:
 					System.out.println("Please enter valid choice");
 					break;

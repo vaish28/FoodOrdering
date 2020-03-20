@@ -1,3 +1,4 @@
+package fooddelivery;
 import java.util.*;
 import java.sql.*;
 
@@ -94,7 +95,7 @@ public class FoodDelivery {
 						case 1:
 							//updating entire menu
 							p.upmenentire(sc, stmt,pno);
-							p.displayMENUcall(stmt);
+							p.displayMENUcall(stmt,pno);
 							break;
 
 						case 2:
@@ -143,7 +144,6 @@ public class FoodDelivery {
 					
 					if(rs.next()==false)
 					{
-						
 						c.acceptcust(sc);
 						String str=c.sqlquery();
 						stmt.executeUpdate("insert into custdetails "+"values("+str+")");
@@ -170,13 +170,9 @@ public class FoodDelivery {
 						{
 						case 1:
 							c.selecprovider(sc, stmt, pr);
-							//need to change the acceptcust function
-
 							break;
 						case 2:
 							c.bill(stmt);
-							//provider in acceptcust function
-
 							break;
 
 						case 0:

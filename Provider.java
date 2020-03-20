@@ -106,7 +106,7 @@ class Provider extends Details
 		double monthlycost = sc.nextDouble();
 		try
 		{
-		stmt.executeUpdate("update provdetails set scost = "+totalcost+ ", mcost = "+monthlycost+" where pno = 7");
+		stmt.executeUpdate("update provdetails set scost = "+totalcost+ ", mcost = "+monthlycost+" where pno = "+provno);
 		System.out.println("Cost updated successfuly!!");
 		}
 		catch(Exception e)

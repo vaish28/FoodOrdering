@@ -122,7 +122,7 @@ class Menu
 		System.out.println();
 		try
 		{
-		ResultSet rs = stmt.executeQuery("select * from menu where pno = 7" );
+		ResultSet rs = stmt.executeQuery("select * from menu where pno = "+provno );
 		int cnt =0;
 		while(rs.next())
 		{

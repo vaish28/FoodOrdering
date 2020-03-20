@@ -14,20 +14,14 @@ public class FoodDelivery {
 
 		try {
 			ResultSet rs=null;
-			//			System.out.println("1");
+		
 			Class.forName("com.mysql.jdbc.Driver");
 
-			System.out.println("2sfgv");
-
 			String url=("jdbc:mysql://localhost/dabewala");
-
-			System.out.println("3sfgv");
 
 			Connection con=DriverManager.getConnection(url,"root","abcd1234");
 
 			Statement stmt=con.createStatement();
-
-			System.out.println("driver loaded");
 
 			do{
 

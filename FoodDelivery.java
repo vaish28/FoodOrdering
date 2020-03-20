@@ -38,6 +38,7 @@ public class FoodDelivery {
 
 					do
 					{
+						flag=0;
 						try{
 							System.out.println("Enter mobile number  :");
 							tele=sc.nextLong();

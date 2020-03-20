@@ -118,9 +118,9 @@ class Provider extends Details
 	}
 	
 	
-	void displayMENUcall(Statement stmt)
+	void displayMENUcall(Statement stmt,int provno)
 	{
-		mm.displayMenu(stmt, id);
+		mm.displayMenu(stmt, provno);
 		
 	}
 

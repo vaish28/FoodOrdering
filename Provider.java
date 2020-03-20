@@ -7,7 +7,6 @@ class Provider extends Details
 	String service;   //name of the business
 	double tcost;
 	double moncost;
-	int providerno=0;
 	int rating=0;
 	Menu mm=new Menu();
 	//Add star rating in the table
@@ -52,8 +51,8 @@ class Provider extends Details
 					break;
 				case 3:
 					category="Both";
-					st.executeQuery("create table menuv" +providerno+"( Day varchar(10),Gravy varchar(30),Dry_veg varchar(30) , Chapati varchar(20), Sides varchar(30), Rice  varchar(30),Special varchar(30))");
-					st.executeQuery("create table menunv" +providerno+"( Day varchar(10),Gravy varchar(30),Dry_veg varchar(30) , Chapati varchar(20), Sides varchar(30), Rice  varchar(30),Special varchar(30))");
+					//st.executeQuery("create table menuv" +providerno+"( Day varchar(10),Gravy varchar(30),Dry_veg varchar(30) , Chapati varchar(20), Sides varchar(30), Rice  varchar(30),Special varchar(30))");
+					//st.executeQuery("create table menunv" +providerno+"( Day varchar(10),Gravy varchar(30),Dry_veg varchar(30) , Chapati varchar(20), Sides varchar(30), Rice  varchar(30),Special varchar(30))");
 					break;
 				case 0:
 					break;

@@ -11,7 +11,7 @@ public class DB {
 			
 			String url=("jdbc:mysql://localhost/dabewala");
 
-			 con=DriverManager.getConnection(url,"root","Archanasanjeev@99");
+			 con=DriverManager.getConnection(url,"root","abcd");
 			
 			 return con;
 		}

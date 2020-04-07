@@ -12,19 +12,26 @@
 <title>MENU</title>
 
 <style>
-	
-	.tab-2{margin-left: 50px}
-	.tab-2 input{display: block;margin-bottom: 20px}
-	tr{transition:all .25s ease-in-out}
-	tr:hover{background-color:#EEE; cursor:pointer}
+    
+    .tab-2{margin-left: 50px}
+    .tab-2 input{display: block;margin-bottom: 20px}
+    tr{transition:all .25s ease-in-out}
+    tr:hover{background-color:#EEE; cursor:pointer}
 </style>
 </head>
 <body>
 <div class="container">
 <div class="tab tab-2"">
-<table id="table" border="1">
+<table>
 <tr>
-<th>Day:</th>
+<td><table border="1" width="85">
+
+    <tr><td>Day</td></tr>
+
+    
+</table>
+</td>
+<td><table id="table" border="1" valign="top">
 <th>Gravy:</th>
 <th>Dry_veg:</th>
 <th>Chapati</th>
@@ -33,9 +40,22 @@
 <th>Special:</th>
 </tr>
 </table>
+</td></tr></table>
+
+
+<table border="1">
+    <tr><td>Monday</td></tr>
+    <tr><td>Tuesday</td></tr>
+       <tr><td>Wednessday</td></tr>
+          <tr><td>Thursday</td></tr>
+             <tr><td>Friday</td></tr>
+                <tr><td>Saturday</td></tr>
+                   <tr><td>Sunday</td></tr>
+
+</table>
 </div>
 <div class="tab-2" align="center" >
-Day<input type="text" name="day" id="day">
+
 Gravy<input type="text" name="gravy" id="gravy">
 Dry_veg<input type="text" name="dryveg" id="dryveg">
 Chapati<input type="text" name="chapati" id="chapati">
@@ -44,160 +64,147 @@ Rice <input type="text" name="rice" id="rice">
 Special<input type="text" name="special" id="special">
 <button onclick="addHtmlTableRow();">Add</button>
 <button onclick="editselectrow();">Edit</button>
-<button onclick="RemoveSelectedRow();">Remove	</button>
+<button onclick="RemoveSelectedRow();">Remove   </button>
 </div>
 </div>
  
  <script>
  var rIndex,
- 	table =document.getElementById("table");
-
- 		//check if any input is empty
-
- 		function checkEmptyInput()
- 		{
-
- 			 var isEmpty = false,
- 			 day=document.getElementById("day").value,
-			 gravy=document.getElementById("gravy").value,
-			 dryveg=document.getElementById("dryveg").value,
-			 chapati=document.getElementById("chapati").value,
-			 sides=document.getElementById("sides").value,
-			 rice=document.getElementById("rice").value,
-			 special=document.getElementById("special").value;	
-
-			 if(day === "")
-			 {
-			 	alert("Day cannot be empty");
-			 	isEmpty = true;
-			 }
-			 else if(gravy === "")
-			 {
-			 	alert("Gravy cannot be empty");
-			 	isEmpty = true;
-			 }
-
-			  else if(dryveg === "")
-			 {
-			 	alert("dryveg cannot be empty");
-			 	isEmpty = true;
-			 }
-			  else if(chapati === "")
-			 {
-			 	alert("Chapati cannot be empty");
-			 	isEmpty = true;
-			 }
-			  else if(sides === "")
-			 {
-			 	alert("sides cannot be empty");
-			 	isEmpty = true;
-			 }
-			  else if(rice === "")
-			 {
-			 	alert("rice cannot be empty");
-			 	isEmpty = true;
-			 }
-			  else if(special === "")
-			 {
-			 	alert("special cannot be empty");
-			 	isEmpty = true;
-			 }
-
-			 return isEmpty;
- 		}
-
-
-	 function addHtmlTableRow()
-	 {
-		 //get table by id
-		 var newRow=table.insertRow(-1,table.length),	//create new rows
-			 //cretae new cells
-			 cell1=newRow.insertCell(0),
-			 cell2=newRow.insertCell(1),
-			 cell3=newRow.insertCell(2),
-			 cell4=newRow.insertCell(3),
-			 cell5=newRow.insertCell(4),
-			 cell6=newRow.insertCell(5),
-			 cell7=newRow.insertCell(6),
-			 //get value from input text and set values into row cell's
-			 if (!checkEmptyInput()) {
-			 day=document.getElementById("day").value,
-			 gravy=document.getElementById("gravy").value,
-			 dryveg=document.getElementById("dryveg").value,
-			 chapati=document.getElementById("chapati").value,
-			 sides=document.getElementById("sides").value,
-			 rice=document.getElementById("rice").value,
-			 special=document.getElementById("special").value;
-		 
-		cell1.innerHTML=day;
-		 cell2.innerHTML=gravy;
-		 cell3.innerHTML=dryveg;
-		 cell4.innerHTML=chapati;
-		 cell5.innerHTML=sides;
-		 cell6.innerHTML=rice;
-		 cell7.innerHTML=special;
-		 selectedRowToInput();
-		}
-	 }
-	 function selectedRowToInput()
-	 {
-		 
-		 for(var i=1;i<table.rows.length;i++)
-			 {
-			 	table.rows[i].onclick=function()
-			 	{
-			 		rIndex=this.rowIndex;
-			 		document.getElementById("day").value=this.cells[0].innerHTML;
-			 		document.getElementById("gravy").value=this.cells[1].innerHTML;
-			 		document.getElementById("dryveg").value=this.cells[2].innerHTML;
-			 		document.getElementById("chapati").value=this.cells[3].innerHTML;
-			 		document.getElementById("sides").value=this.cells[4].innerHTML;
-			 		document.getElementById("rice").value=this.cells[5].innerHTML;
-			 		document.getElementById("special").value=this.cells[6].innerHTML;
-			 		
-			 	};
-		 	}
-		 
-	}
-	 selectedRowToInput();
-	 function editselectrow()
-	 {
-		 var day=document.getElementById("day").value,
-		 gravy=document.getElementById("gravy").value,
-		 dryveg=document.getElementById("dryveg").value,
-	 	chapati=document.getElementById("chapati").value,
-	 	sides=document.getElementById("sides").value,
-	 	rice=	document.getElementById("rice").value,
-	 		special=document.getElementById("special").value;
-	 		if (!checkEmptyInput()) {
-		table.rows[rIndex].cells[0].innerHTML = day;
-		table.rows[rIndex].cells[1].innerHTML = gravy;
-		table.rows[rIndex].cells[2].innerHTML = dryveg;
-		table.rows[rIndex].cells[3].innerHTML = chapati;
-		table.rows[rIndex].cells[4].innerHTML = sides;
-		table.rows[rIndex].cells[5].innerHTML = rice;
-		table.rows[rIndex].cells[6].innerHTML = special;
-	}
-	 }
-
-
-
-	 function RemoveSelectedRow()
-	 {
-	 	table.deleteRow(rIndex);
-
-	 	//clear input text
-
-	 	  document.getElementById("day").value =;
-		 document.getElementById("gravy").value =;
-		 document.getElementById("dryveg").value =;
-	 	document.getElementById("chapati").value =;
-	 	document.getElementById("sides").value =;
-	 	document.getElementById("rice").value =;
-	 	document.getElementById("special").value =;
-	 	
-
-	 }
+    table =document.getElementById("table");
+        //check if any input is empty
+        function checkEmptyInput()
+        {
+             var isEmpty = false,
+            // day=document.getElementById("day").value,
+             gravy=document.getElementById("gravy").value,
+             dryveg=document.getElementById("dryveg").value,
+             chapati=document.getElementById("chapati").value,
+             sides=document.getElementById("sides").value,
+             rice=document.getElementById("rice").value,
+             special=document.getElementById("special").value;  
+             /*if(day === "")
+             {
+                alert("Day cannot be empty");
+                isEmpty = true;
+             }
+             */else if(gravy === "")
+             {
+                alert("Gravy cannot be empty");
+                isEmpty = true;
+             }
+              else if(dryveg === "")
+             {
+                alert("dryveg cannot be empty");
+                isEmpty = true;
+             }
+              else if(chapati === "")
+             {
+                alert("Chapati cannot be empty");
+                isEmpty = true;
+             }
+              else if(sides === "")
+             {
+                alert("sides cannot be empty");
+                isEmpty = true;
+             }
+              else if(rice === "")
+             {
+                alert("rice cannot be empty");
+                isEmpty = true;
+             }
+              else if(special === "")
+             {
+                alert("special cannot be empty");
+                isEmpty = true;
+             }
+             return isEmpty;
+        }
+     function addHtmlTableRow()
+     {
+         //get table by id
+         var newRow=table.insertRow(-1,table.length),   //create new rows
+             //cretae new cells
+            // cell1=newRow.insertCell(0),
+             cell2=newRow.insertCell(0),
+             cell3=newRow.insertCell(1),
+             cell4=newRow.insertCell(2),
+             cell5=newRow.insertCell(3),
+             cell6=newRow.insertCell(4),
+             cell7=newRow.insertCell(5),
+             //get value from input text and set values into row cell's
+             if (!checkEmptyInput()) {
+             //day=document.getElementById("day").value,
+             gravy=document.getElementById("gravy").value,
+             dryveg=document.getElementById("dryveg").value,
+             chapati=document.getElementById("chapati").value,
+             sides=document.getElementById("sides").value,
+             rice=document.getElementById("rice").value,
+             special=document.getElementById("special").value;
+         
+        //cell1.innerHTML=day;
+         cell2.innerHTML=gravy;
+         cell3.innerHTML=dryveg;
+         cell4.innerHTML=chapati;
+         cell5.innerHTML=sides;
+         cell6.innerHTML=rice;
+         cell7.innerHTML=special;
+         selectedRowToInput();
+        }
+     }
+     function selectedRowToInput()
+     {
+         
+         for(var i=1;i<table.rows.length;i++)
+             {
+                table.rows[i].onclick=function()
+                {
+                    rIndex=this.rowIndex;
+                    //document.getElementById("day").value=this.cells[0].innerHTML;
+                    document.getElementById("gravy").value=this.cells[0].innerHTML;
+                    document.getElementById("dryveg").value=this.cells[1].innerHTML;
+                    document.getElementById("chapati").value=this.cells[2].innerHTML;
+                    document.getElementById("sides").value=this.cells[3].innerHTML;
+                    document.getElementById("rice").value=this.cells[4].innerHTML;
+                    document.getElementById("special").value=this.cells[5].innerHTML;
+                    
+                };
+            }
+         
+    }
+     selectedRowToInput();
+     function editselectrow()
+     {
+         var //day=document.getElementById("day").value,
+         gravy=document.getElementById("gravy").value,
+         dryveg=document.getElementById("dryveg").value,
+        chapati=document.getElementById("chapati").value,
+        sides=document.getElementById("sides").value,
+        rice=   document.getElementById("rice").value,
+            special=document.getElementById("special").value;
+            if (!checkEmptyInput()) {
+       // table.rows[rIndex].cells[0].innerHTML = day;
+        table.rows[rIndex].cells[0].innerHTML = gravy;
+        table.rows[rIndex].cells[1].innerHTML = dryveg;
+        table.rows[rIndex].cells[2].innerHTML = chapati;
+        table.rows[rIndex].cells[3].innerHTML = sides;
+        table.rows[rIndex].cells[4].innerHTML = rice;
+        table.rows[rIndex].cells[5].innerHTML = special;
+    }
+     }
+     function RemoveSelectedRow()
+     {
+        table.deleteRow(rIndex);
+        //clear input text
+         // document.getElementById("day").value =;
+         document.getElementById("gravy").value =;
+         document.getElementById("dryveg").value =;
+        document.getElementById("chapati").value =;
+        document.getElementById("sides").value =;
+        document.getElementById("rice").value =;
+        document.getElementById("special").value =;
+        
+     }
  </script>
+
 </body>
 </html>

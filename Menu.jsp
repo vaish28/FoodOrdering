@@ -19,9 +19,22 @@
 </style>
 </head>
  <body bgcolor=aqua>
-<<form action="menu_newcheck.html">
-<form name="menu" id="menu" method="post"  onsubmit="return validateForm();">
+ 
+<form name="menu" id="menu" method="post" action="menu_newcheck.jsp" onsubmit="return validateForm();">
+<div class="tab-2" align="center">
+Day<input type="text" name="day" id="day">
+Gravy<input type="text" name="gravy" id="gravy">
+Dry_veg<input type="text" name="dryveg" id="dryveg">
+Chapati<input type="text" name="chapati" id="chapati">
+Sides<input type="text" name="sides" id="sides">
+Rice <input type="text" name="rice" id="rice">
+Special<input type="text" name="special" id="special">
 
+ <button onClick="onClick()">Add</button>
+<p>Clicks: <a id="clicks">0</a></p>
+</div>
+</div>
+</form>
 <script>
 	var clicks=0;
 	localStorage.setItem("clicks",clicks);
@@ -31,7 +44,7 @@
 		localStorage.clicks = Number(localStorage.clicks) + 1;
 		document.getElementById("clicks").innerHTML = localStorage.clicks
 		
-		if(localStorage.getItem("clicks")==1)
+		if(localStorage.getItem("clicks"==3)
 		{
 			window.location.href = "menu_newcheck.html";
 		}
@@ -68,22 +81,7 @@ window.onload = function(){
 	<th>Special</th>
 	</tr>
 	</table>
-	<div class="tab-2" align="left">
-Day<input type="text" name="day" id="day">
-Gravy<input type="text" name="gravy" id="gravy">
-Dry_veg<input type="text" name="dryveg" id="dryveg">
-Chapati<input type="text" name="chapati" id="chapati">
-Sides<input type="text" name="sides" id="sides">
-Rice <input type="text" name="rice" id="rice">
-Special<input type="text" name="special" id="special">
-
- <button onClick="onClick()">Add</button>
-<p>Clicks: <a id="clicks">0</a></p>
-</div>
-</div>
-</form>
-
-		<%
+	<%
 
 
 		Connection con=DB.conc();

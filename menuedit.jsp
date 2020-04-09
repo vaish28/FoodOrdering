@@ -54,17 +54,24 @@ System.out.println(ex);
 </table>
 <form action="menueditcheck.jsp">
 <div class="tab-2" align="center">
-pno<input type="text" name="pno">
+pno<input type="text" name="pno" id="pno">
+<br><br>
 Day<input type="text" name="day" id="day">
+<br><br>
 Gravy<input type="text" name="gravy" id="gravy">
+<br><br>
 Dry_veg<input type="text" name="dryveg" id="dryveg">
+<br><br>
 Chapati<input type="text" name="chapati" id="chapati">
+<br><br>
 Sides<input type="text" name="sides" id="sides">
+<br><br>
 Rice <input type="text" name="rice" id="rice">
+<br><br>
 Special<input type="text" name="special" id="special">
- <button onclick="addHtmlTableRow();">Add</button>
+ <br><br>
 <button onclick="editselectrow();">Edit</button>
-<button>Remove	</button>
+
 </div>
 
 </form>
@@ -77,14 +84,14 @@ function selectedRowToInput()
 			 	table.rows[i].onclick=function()
 			 	{
 			 		rIndex=this.rowIndex;
-			 		
-			 		document.getElementById("day").value=this.cells[0].innerHTML;
-			 		document.getElementById("gravy").value=this.cells[1].innerHTML;
-			 		document.getElementById("dryveg").value=this.cells[2].innerHTML;
-			 		document.getElementById("chapati").value=this.cells[3].innerHTML;
-			 		document.getElementById("sides").value=this.cells[4].innerHTML;
-			 		document.getElementById("rice").value=this.cells[5].innerHTML;
-			 		document.getElementById("special").value=this.cells[6].innerHTML;
+			 		document.getElementById("pno").value=this.cells[0].innerHTML;
+			 		document.getElementById("day").value=this.cells[1].innerHTML;
+			 		document.getElementById("gravy").value=this.cells[2].innerHTML;
+			 		document.getElementById("dryveg").value=this.cells[3].innerHTML;
+			 		document.getElementById("chapati").value=this.cells[4].innerHTML;
+			 		document.getElementById("sides").value=this.cells[5].innerHTML;
+			 		document.getElementById("rice").value=this.cells[6].innerHTML;
+			 		document.getElementById("special").value=this.cells[7].innerHTML;
 			 		
 			 	};
 		 	}
@@ -101,14 +108,16 @@ function selectedRowToInput()
 	 	rice=	document.getElementById("rice").value,
 	 		special=document.getElementById("special").value;
 	 		
-		table.rows[rIndex].cells[0].innerHTML = day;
+		/*table.rows[rIndex].cells[0].innerHTML = day;
 		table.rows[rIndex].cells[1].innerHTML = gravy;
 		table.rows[rIndex].cells[2].innerHTML = dryveg;
 		table.rows[rIndex].cells[3].innerHTML = chapati;
 		table.rows[rIndex].cells[4].innerHTML = sides;
 		table.rows[rIndex].cells[5].innerHTML = rice;
 		table.rows[rIndex].cells[6].innerHTML = special;
+		*/
 	 }
+	 
  </script>
 
 </body>

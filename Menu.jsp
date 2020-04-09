@@ -18,22 +18,57 @@
 
 </style>
 </head>
-<body>
-<div class="container">
-<div class="tab tab-2"">
-<table id="table" border="1">
-<tr>
-<th>Day:</th>
-<th>Gravy:</th>
-<th>Dry_veg:</th>
-<th>Chapati</th>
-<th>Sides:</th>
-<th>Rice:</th>
-<th>Special:</th>
-</tr>
-</table>
-</div>
-<div class="tab-2" align="center" >
+ <body bgcolor=aqua>
+<<form action="menu_newcheck.html">
+<form name="menu" id="menu" method="post"  onsubmit="return validateForm();">
+
+<script>
+	var clicks=0;
+	localStorage.setItem("clicks",clicks);
+
+	function onClick()
+	{
+		localStorage.clicks = Number(localStorage.clicks) + 1;
+		document.getElementById("clicks").innerHTML = localStorage.clicks
+		
+		if(localStorage.getItem("clicks")==1)
+		{
+			window.location.href = "menu_newcheck.html";
+		}
+	}
+	
+</script>
+<script>
+window.onload = function(){
+    var form = document.getElementById("menu");
+    form.onsubmit = function(){
+        var inputs = form.getElementsByTagName("input"), input = null, flag = true;
+        for(var i = 0, len = inputs.length; i < len; i++) {
+            input = inputs[i];
+            if(!input.value) {
+                flag = false;
+                input.focus();
+                alert("Please fill all the inputs");
+				clicks=clicks-1;
+                break;
+            }
+        }
+        return(flag);
+    };
+};
+</script>
+	<table border="1" align="center" >
+	<tr bgcolor=pink>
+	<th>Day</th>
+	<th>Gravy</th>
+	<th>Dryveg</th>
+	<th>Chapati</th>
+	<th>Sides</th>
+	<th>Rice</th>
+	<th>Special</th>
+	</tr>
+	</table>
+	<div class="tab-2" align="left">
 Day<input type="text" name="day" id="day">
 Gravy<input type="text" name="gravy" id="gravy">
 Dry_veg<input type="text" name="dryveg" id="dryveg">
@@ -42,45 +77,39 @@ Sides<input type="text" name="sides" id="sides">
 Rice <input type="text" name="rice" id="rice">
 Special<input type="text" name="special" id="special">
 
+ <button onClick="onClick()">Add</button>
+<p>Clicks: <a id="clicks">0</a></p>
+</div>
+</div>
+</form>
 
-<button onclick="addHtmlTableRow();">Add</button>
-<button>Edit</button>
-<button>Remove	</button>
-</div>
-</div>
- 
- <script>
- 
-	 function addHtmlTableRow()
-	 {
-		 //get table by id
-		 var table=document.getElementById("table"),
-			 newRow=table.insertRow(table.length),	//create new rows
-			 //cretae new cells
-			 cell1=newRow.insertCell(0),
-			 cell2=newRow.insertCell(1),
-			 cell3=newRow.insertCell(2),
-			 cell4=newRow.insertCell(3),
-			 cell5=newRow.insertCell(4),
-			 cell6=newRow.insertCell(5),
-			 cell6=newRow.insertCell(6),
-			 //get value from input text and set values into row cell's
-			 day=document.getElementById("day").value,
-			 gravy=document.getElementById("gravy").value,
-			 dryveg=document.getElementById("dryveg").value,
-			 chapati=document.getElementById("chapati").value,
-			 sides=document.getElementById("sides").value,
-			 rice=document.getElementById("rice").value,
-			 special=document.getElementById("special").value;
-		 
-		cell1.innerHTML=day;
-		 cell2.innerHTML=gravy;
-		 cell3.innerHTML=dryveg;
-		 cell4.innerHTML=chapati;
-		 cell5.innerHTML=sides;
-		 cell6.innerHTML=rice;
-		 cell7.innerHTML=special;
-	 }
- </script>
+		<%
+
+
+		Connection con=DB.conc();
+
+		Statement stmt=con.createStatement();
+
+		String qry = "select * from menu";
+
+		rs = stmt.executeQuery(qry);
+
+		while(rs.next())
+		{
+		%>
+		<tr bgcolor=pink>
+		<td><%=rs.getString(1)%></td>
+		<td><%=rs.getString(2)%></td>
+		<td><%=rs.getString(3)%></td>
+		<td><%=rs.getString(4)%></td>
+		<td><%=rs.getString(5)%></td>
+		<td><%=rs.getString(6)%></td>
+
+		<td><%=rs.getString(7)%></td>
+		</tr>
+
+		<%
+		}
+
 </body>
 </html>

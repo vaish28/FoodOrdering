@@ -19,7 +19,7 @@ String dryveg=request.getParameter("dryveg");
 String chapati=request.getParameter("chapati");
 String sides=request.getParameter("sides");
 Connection con=DB.conc();
-String query="update menu set day='"+day+"',gravy='"+gravy+"',dryveg='"+dryveg+"',chapati='"+chapati+"',sides='"+sides+"' where pno="+pno+",day="+day;
+String query="update menu set day='"+day+"',gravy='"+gravy+"',dryveg='"+dryveg+"',chapati='"+chapati+"',sides='"+sides+"' where pno="+pno+" and day='"+day+"'";
 Statement stmt=con.createStatement();
 int r=stmt.executeUpdate(query);
 if(r!=0)

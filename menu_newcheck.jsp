@@ -1,6 +1,9 @@
-<%@page import="javax.swing.JOptionPane"%>
+<%@page import="java.sql.*"%>
+<%@page import="javax.swing.JOptionPane" %>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
+	<%@page import="com.DB" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,20 +12,26 @@
 </head>
 <body>
 <%
+	String day=request.getParameter("day");	
+	String gravy=request.getParameter("gravy");
+	String dry_veg=request.getParameter("dryveg");
+	String chapati=request.getParameter("chapati");
+	String sides=request.getParameter("sides");
+	String query="insert into menu values(1,'"+day+"','"+gravy+"','"+dry_veg+"','"+chapati+"','"+sides+"'"+")";
+	Connection con=DB.conc();
+	Statement stmt=con.createStatement();
+	int r=stmt.executeUpdate(query);
+	if(r!=0)
+	{
+		JOptionPane.showMessageDialog(null,"success");
+		//response.sendRedirect("menu_new.html");
+	}
+	else
+	{
+		JOptionPane.showMessageDialog(null,"failed");
+		response.sendRedirect("reg.jsp");
+	}
 
-	String day=request.getParameter("day");
-	request.setAttribute("day",day);	
-String gravy=request.getParameter("gravy name");
-	String dry_veg=request.getParameter("dry_veg name");
-	String chapati=request.getParameter("Chapati name");
-	String sides=request.getParameter("Sides name");
-	String rice=request.getParameter("Rice name");
-	String special=request.getParameter("Special name");
-	JOptionPane.showMessageDialog(null,"Done!");
 %>
-
-
-
-
 </body>
 </html>

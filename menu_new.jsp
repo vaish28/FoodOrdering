@@ -22,21 +22,7 @@
 
 <form action="menu_newcheck.jsp" name="menu" id="menu" method="post"  onsubmit="return validateForm();">
 
-<script>
-	
-	function onClick()
-	{
-		HttpSession sess=request.getSession(false);
-		var c=parseInt(sess.getAttribute("clicks").toString());
-		document.getElementById("clicks").innerHTML = c
-		if(c==2)
-		{
-			window.location.href = "menu_newcheck.jsp";
-		}
-	}
-	
-	
-</script>
+
 <script>
 window.onload = function(){
     var form = document.getElementById("menu");
@@ -48,7 +34,7 @@ window.onload = function(){
                 flag = false;
                 input.focus();
                 alert("Please fill all the inputs");
-				clicks=clicks-1;
+				//clicks=clicks-1;
                 break;
             }
         }
@@ -71,7 +57,6 @@ window.onload = function(){
 		Connection con=DB.conc();
 		Statement stmt=con.createStatement();
 		HttpSession sess = request.getSession(false);
-		
 		int pno=Integer.parseInt(sess.getAttribute("pno2").toString());
 		String qry = "select * from menu where pno="+pno;
 		rs = stmt.executeQuery(qry);
@@ -108,7 +93,19 @@ Special<input type="text" name="special" id="special">
 <p>Clicks: <a id="clicks">0</a></p>
 </div>
 </div>
+
+<button onClick="myfunc()">Submit</button>
+
 </form>
+
+<script>
+function myfunc()
+{
+	window.location.href="menucheck.jsp";
+}
+
+
+</script>
 
 		</body>
 </html>

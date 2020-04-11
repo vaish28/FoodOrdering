@@ -10,7 +10,7 @@
 </head>
 
 <body bgcolor=aqua>
-
+<center>
 <table border="1" >
 <tr bgcolor=pink>
 <td>pno</td>
@@ -22,6 +22,7 @@
 <td>rice</td>
 <td>special</td>
 </tr>
+
 
 <%
 try{
@@ -56,7 +57,17 @@ catch(Exception ex)
 System.out.println(ex);
 }
 %>
+</table>
+<br></br>
 
+<button  type="submit" onclick="myFunction()" style="background-color:blue;color: white;width: 200px;height: 50px">Back</button><br><br>
+<script>
+function myFunction() {
+  window.location.href = "aed.jsp";
+}
+
+</script>
+</center>
 </table>
 </body>
 </html>

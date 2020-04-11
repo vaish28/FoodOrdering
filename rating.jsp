@@ -28,6 +28,7 @@
 			//int provno = Integer.parseInt(sess.getAttribute("pno").toString());
 			String q = "update provdetails set rating = "+rat+" where pno=1";
 			stmt.executeUpdate(q);
+			response.sendRedirect("bill.jsp")
 	%>
 
 </body>

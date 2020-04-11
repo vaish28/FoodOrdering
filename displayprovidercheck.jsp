@@ -12,7 +12,7 @@
 		String pno1=request.getParameter("pno");
 		HttpSession sess = request.getSession(false);
 		sess.setAttribute("pno",pno1);
-		response.sendRedirect("scost.jsp");	
+		response.sendRedirect("quantity.jsp");	
 %>
 
 

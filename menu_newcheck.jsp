@@ -17,7 +17,14 @@
 	String dry_veg=request.getParameter("dryveg");
 	String chapati=request.getParameter("chapati");
 	String sides=request.getParameter("sides");
-	String query="insert into menu values(1,'"+day+"','"+gravy+"','"+dry_veg+"','"+chapati+"','"+sides+"'"+")";
+	String rice=request.getParameter("rice");
+	String special=request.getParameter("special");
+	int clicks;
+	HttpSession sess=request.getSession(false);
+	clicks=Integer.parseInt(sess.getAttribute("clicks").toString());
+	clicks=clicks+1;
+	sess.setAttribute("clicks",clicks);
+	String query="insert into menu values(1,'"+day+"','"+gravy+"','"+dry_veg+"','"+chapati+"','"+sides+"','"+rice+"','"+special+"')";
 	Connection con=DB.conc();
 	Statement stmt=con.createStatement();
 	int r=stmt.executeUpdate(query);

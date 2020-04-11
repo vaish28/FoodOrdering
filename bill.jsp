@@ -117,7 +117,7 @@
 	</tr>
 </table>
 <p align="center"><strong>THANK YOU!</strong></p>
-
+<center>
 <p ><strong>How would you rate this provider?</strong></p>
 
 
@@ -129,10 +129,27 @@
 <input type="radio" name="rating" value="5">5
 <br>
 <br>
-<button type="submit" style="background-color: blue;color: white;">Rate Now!</button>
+<button type="submit" style="background-color: blue;color: white;width: 75px;height: 40px">Rate Now!</button>
 </form>
 
+<center>
+<br><br></br></br>
+<button  type="submit" onclick="myFunctions()" style="background-color:blue;color: white;width: 150px;height: 50px">Logout</button><br><br>
+<script>
+function myFunctions() {
+  window.location.href = "index.html";
+}
 
+</script>
+</button>
+<button  type="submit" onclick="myFunctionn()" style="background-color:blue;color: white;width: 150px;height: 50px">Place Order</button><br><br>
+<script>
+function myFunctionn() {
+  window.location.href = "displayprovider.html";
+}
+</script>
+</center>
 
+</button>
 </body>
 </html>

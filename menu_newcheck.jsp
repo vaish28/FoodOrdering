@@ -24,14 +24,13 @@
 	if(r!=0)
 	{
 		JOptionPane.showMessageDialog(null,"success");
-		//response.sendRedirect("menu_new.html");
+		response.sendRedirect("menu_new.jsp");
 	}
 	else
 	{
 		JOptionPane.showMessageDialog(null,"failed");
 		response.sendRedirect("reg.jsp");
 	}
-
 %>
 </body>
 </html>

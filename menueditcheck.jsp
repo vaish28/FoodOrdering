@@ -10,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body>
+<body background="C:\Users\user\Downloads\menu2.jpg">
 <%
 String pno=request.getParameter("pno");
 String day=request.getParameter("day");

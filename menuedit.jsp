@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 
-<body bgcolor=aqua>
+<body background="C:\Users\user\Downloads\menu2.jpg>
 
 <table border="1" id="table">
 <tr bgcolor=pink>

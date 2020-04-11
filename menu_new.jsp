@@ -1,5 +1,6 @@
 <%@page import="javax.swing.*" %>
 <%@page import="java.awt.*" %>
+<%@page import="com.DB" %>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.*"%>
 <%@page import="javax.swing.table.*"%>
@@ -15,27 +16,25 @@
 	
 	.tab-2{margin-left: 50px}
 	.tab-2 input{display: block;margin-bottom: 20px}
-
 </style>
 </head>
  <body bgcolor=aqua>
-<<form action="menu_newcheck.html">
-<form name="menu" id="menu" method="post"  onsubmit="return validateForm();">
+
+<form action="menu_newcheck.jsp" name="menu" id="menu" method="post"  onsubmit="return validateForm();">
 
 <script>
-	var clicks=0;
-	localStorage.setItem("clicks",clicks);
-
+	
 	function onClick()
 	{
-		localStorage.clicks = Number(localStorage.clicks) + 1;
-		document.getElementById("clicks").innerHTML = localStorage.clicks
-		
-		if(localStorage.getItem("clicks")==1)
+		HttpSession sess=request.getSession(false);
+		int clicks=Number(sess.getAttribute("clicks").toString());
+		document.getElementById("clicks").innerHTML = clicks
+		if(clicks==2)
 		{
-			window.location.href = "menu_newcheck.html";
+			window.location.href = "menu_newcheck.jsp";
 		}
 	}
+	
 	
 </script>
 <script>
@@ -67,7 +66,32 @@ window.onload = function(){
 	<th>Rice</th>
 	<th>Special</th>
 	</tr>
+	<%
+		ResultSet rs=null;
+		Connection con=DB.conc();
+		Statement stmt=con.createStatement();
+		String qry = "select * from menu";
+		rs = stmt.executeQuery(qry);
+		while(rs.next())
+		{
+		%>
+		<tr bgcolor=pink>
+		<td><%=rs.getString(1)%></td>
+		<td><%=rs.getString(2)%></td>
+		<td><%=rs.getString(3)%></td>
+		<td><%=rs.getString(4)%></td>
+		<td><%=rs.getString(5)%></td>
+		<td><%=rs.getString(6)%></td>
+
+		
+		</tr>
+		
+		<%
+		}
+		%>
+	
 	</table>
+	
 	<div class="tab-2" align="left">
 Day<input type="text" name="day" id="day">
 Gravy<input type="text" name="gravy" id="gravy">
@@ -83,33 +107,5 @@ Special<input type="text" name="special" id="special">
 </div>
 </form>
 
-		<%
-
-
-		Connection con=DB.conc();
-
-		Statement stmt=con.createStatement();
-
-		String qry = "select * from menu";
-
-		rs = stmt.executeQuery(qry);
-
-		while(rs.next())
-		{
-		%>
-		<tr bgcolor=pink>
-		<td><%=rs.getString(1)%></td>
-		<td><%=rs.getString(2)%></td>
-		<td><%=rs.getString(3)%></td>
-		<td><%=rs.getString(4)%></td>
-		<td><%=rs.getString(5)%></td>
-		<td><%=rs.getString(6)%></td>
-
-		<td><%=rs.getString(7)%></td>
-		</tr>
-
-		<%
-		}
-
-</body>
+		</body>
 </html>

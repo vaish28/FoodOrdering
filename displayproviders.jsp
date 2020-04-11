@@ -63,6 +63,14 @@ System.out.println(ex);
 
 
 </table>
+  
+  
+  <p>Enter pno for the provider selection</p>
+	<form name="frmQ" action="scost.jsp">
+		<input type="text" name="pno1">
+		<button type="submit">select pno</button>
+
+	</form>
 
 </body>
 </html>

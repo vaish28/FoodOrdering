@@ -26,7 +26,7 @@ int r=stmt.executeUpdate(query);
 if(r!=0)
 {
 	JOptionPane.showMessageDialog(null,"success");
-	response.sendRedirect("aed.jsp");
+	response.sendRedirect("menu.jsp");
 }
 else
 {

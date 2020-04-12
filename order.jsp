@@ -19,6 +19,8 @@
 <th><h4>provider number</h4></th>
 <th><h4>Customer id</h4></th>
 <th><h4>Customer Name</h4></th>
+<th><h4>Item Name</h4></th>
+<th><h4>Quantity</h4></th>
 </tr>
 
 <% 
@@ -47,7 +49,7 @@
 	</center>
 </table>
 <form name="disp" action="ordercheck.jsp">
-<button  style="background-color: green;color: white;width: 200px;height: 50px">Dispatched Order</button><br><br>
+<button  style="background-color: green;color: white;width: 200px;height: 50px">Order Done</button><br><br>
 </form>
 		
 </body>

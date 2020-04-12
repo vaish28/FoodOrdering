@@ -16,8 +16,9 @@
 	<h2><center>Pending Orders</h2>
 <table border="1" align="center">
 <tr bgcolor="green">
-<th><h4>provider number</h4></th>
+
 <th><h4>Customer id</h4></th>
+<th><h4>provider number</h4></th>
 <th><h4>Customer Name</h4></th>
 <th><h4>Item Name</h4></th>
 <th><h4>Quantity</h4></th>
@@ -33,15 +34,14 @@
 	rs=stmt.executeQuery(str);
 	while(rs.next())
 	{
-		int regno=rs.getInt(1);
-		int pno=rs.getInt(2);
-		String name=rs.getString(3);
 	%>
 	
 	<tr>
-	<td>pno</td>
-	<td>regno</td>
-	<td>name</td>
+	<td><%=rs.getInt(1)%></td>
+	<td><%=rs.getInt(2)%></td>
+	<td><%=rs.getInt(3)%></td>
+	<td><%=rs.getString(4)%></td>
+	<td><%=rs.getString(5)%></td>
 	</tr>
 	<%
 	}

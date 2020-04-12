@@ -4,25 +4,30 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="style2.css">
+<title>Login</title>
+
 </head>
 <body>
-<center>
+<div class="loginbox">
+<img src="avatar.png" class="avatar" align="center">
 <form action="logincustcheck.jsp" method="post">
-<table border="0">
-<tr><th>Login page</th></tr>
-<tr><td>User Name </td>
-<td><input type="text" name="username"  placeholder="enter name"></td></tr>
-<tr><td>Password</td>
-<td><input type="password" name="pwd" placeholder="Enter password"></td></tr>
-<tr><td>Telephone Number</td>
-<td><input type="number" name="tele" placeholder="Enter telephone number"></td></tr>
+<br><br></br></br>
+<h1><font color="white">Login page</h1>
+<h2><font color="white" align="center"><p>User Name </p></h2>
+<p><input type="text" name="username"  placeholder="enter name"></p>
 
-</table>
-<input type="submit" value="submit">
+<h2><font color="white"><p>Password</p></h2>
+<p><input type="password" name="pwd" placeholder="Enter password"></p>
+
+<h2><font color="white" align="center"><p> Contact number </p></h2>
+<p><input  type="tel" name="tele" placeholder="Enter contact number" minlength="10"></p>
+
+<p><input type="submit" value="submit"></p>
 </form>
 
 <p>Don't have an account?</p>
-<a href="regcust.jsp">Register now</a>
+<p><h2><a href="regcust.jsp" >Register now</a></p></h2>
+</div>
 </body>
 </html>

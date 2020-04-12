@@ -9,11 +9,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Order</title>
 </head>
 <body>
 <center>
-
+	<h2><center>Pending Orders</h2>
 <table border="1" align="center">
 <tr bgcolor="green">
 <th><h4>provider number</h4></th>
@@ -44,6 +44,7 @@
 	<%
 	}
 %>
+	</center>
 </table>
 <form name="disp" action="ordercheck.jsp">
 <button  style="background-color: green;color: white;width: 200px;height: 50px">Dispatched Order</button><br><br>

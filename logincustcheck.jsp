@@ -14,13 +14,18 @@
 <% 
 String tele=request.getParameter("tele");
 	Connection con=DB.conc();
-	String str="select regno from custdetails where telno="+tele;
+	String str="select regno,name from custdetails where telno="+tele;
 	ResultSet rs=null;
 	Statement stmt=con.createStatement();
 	rs=stmt.executeQuery(str);
 	
 	if(rs.next()!=false)
 	{
+		int regno1=rs.getInt(1);
+		String name1=rs.getString(2);
+		HttpSession sess = request.getSession(false);
+		sess.setAttribute("regno",regno1);
+		sess.setAttribute("name1",name1);
 		JOptionPane.showMessageDialog(null,"success");
 		response.sendRedirect("displayprovider.jsp");
 	}
@@ -31,7 +36,6 @@ String tele=request.getParameter("tele");
 		JOptionPane.showMessageDialog(null,"failed");
 		response.sendRedirect("regcust.jsp");
 	}
-		
 	%>
 </body>
 </html>

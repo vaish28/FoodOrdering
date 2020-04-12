@@ -58,8 +58,8 @@
 			Connection con = DB.conc();
 			stmt = con.createStatement();
 			HttpSession sess=request.getSession(false);
-			//String provno = sess.getAttribute("pno").toString();
-			int provno=1;
+			int provno = Integer.parseInt(sess.getAttribute("pno").toString());
+			
 			//int choice = Integer.parseInt(request.getAttribute("tiff").toString());
 			
 			String choice=sess.getAttribute("tiff").toString();
@@ -94,6 +94,7 @@
 		</tr>
 		<%
 			}
+			stmt.executeUpdate("insert into provcust values()");
 		%>
 
 
@@ -139,13 +140,12 @@
 function myFunctions() {
   window.location.href = "index.html";
 }
-
 </script>
 </button>
-<button  type="submit" onclick="myFunctionn()" style="background-color:blue;color: white;width: 150px;height: 50px">Place Order</button><br><br>
+<button  type="submit" onclick="myFunctionn()" style="background-color:blue;color: white;width: 150px;height: 50px">Place Another Order</button><br><br>
 <script>
 function myFunctionn() {
-  window.location.href = "displayprovider.html";
+  window.location.href = "displayprovider.jsp";
 }
 </script>
 </center>

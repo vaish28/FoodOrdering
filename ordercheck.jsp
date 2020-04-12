@@ -7,6 +7,7 @@
 	Statement stmt=con.createStatement();
 	HttpSession sess=request.getSession(false);
 	int provno=sess.getAttribute("pno");
+	int regno=request.getParameter("custid");
 	String str="delete from provcust where regno = "+regno+" and pno = "+provno 
 	ResultSet rs=null;
 	rs=stmt.executeUpdate(str);

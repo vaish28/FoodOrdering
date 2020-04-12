@@ -17,10 +17,14 @@
 		<button style="background-color: blue;color: white;width: 200px;height: 50px" type="submit">DISPLAY</button><br><br>
 		
 		</form>
+		<form name="disp" action="order.jsp">
+		<button  style="background-color: green;color: white;width: 200px;height: 50px">PENDING ORDERS</button><br><br>
+		</form>
 		<form action="index.html">
 		<button name="logout" >LOGOUT</button>
 		</form>
 		</div>
+		
 
 </body>
 </html>

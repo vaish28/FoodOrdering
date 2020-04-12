@@ -2,7 +2,7 @@ body
 {
 	margin:0;
 	padding:0;
-	background:url(C:\Users\User\workspace\test1\Test1\WebContent\food.jpg);
+	background:url(food.jpg);
 	background-size: cover;
 	background-position:center
 	
@@ -12,12 +12,12 @@ body
 	background: #000;
 	margin: 6% auto;
 	width: 520px;
-	height: 620px;
+	height: 630px;
 	position:relative;
 	color: #fff;
-margin: 6% auto;
-padding: 5px;
-align-items: center;
+	margin: 6% auto;
+	padding: 5px;
+	align-items: center;
 	
 
 }

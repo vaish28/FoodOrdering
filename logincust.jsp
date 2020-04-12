@@ -15,13 +15,13 @@
 <br><br></br></br>
 <h1><font color="white">Login page</h1>
 <h2><font color="white" align="center"><p>User Name </p></h2>
-<p><input type="text" name="username"  placeholder="enter name"></p>
+<p><input type="text" name="username"  placeholder="enter name" required=""></p>
 
 <h2><font color="white"><p>Password</p></h2>
-<p><input type="password" name="pwd" placeholder="Enter password"></p>
+<p><input type="password" name="pwd" placeholder="Enter password" required=""></p>
 
 <h2><font color="white" align="center"><p> Contact number </p></h2>
-<p><input  type="tel" name="tele" placeholder="Enter contact number" minlength="10"></p>
+<p><input  type="tel" name="tele" placeholder="Enter contact number" required="" minlength="10"></p>
 
 <p><input type="submit" value="submit"></p>
 </form>

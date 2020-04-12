@@ -43,7 +43,7 @@ window.onload = function(){
 <font color="white">
 <p><input type="submit" value="submit"></p>
 </form>
-<p>Don't have an account?</p>
+<p><font color="white">Don't have an account?</p>
 <a href="reg.jsp"><font color="white"><h2>Register now</a></h2>
 </div>
 

@@ -49,6 +49,9 @@
 	</center>
 </table>
 <form name="disp" action="ordercheck.jsp">
+<h2> Customer id whose order is ready </p></h2>
+<input  type="tel" name="custid"  placeholder="enter Customer id whose order is ready">
+	<br></br>
 <button  style="background-color: green;color: white;width: 200px;height: 50px">Order Done</button><br><br>
 </form>
 		

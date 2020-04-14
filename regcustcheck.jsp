@@ -24,6 +24,10 @@
 	if(r!=0)
 	{
 		JOptionPane.showMessageDialog(null,"success");
+		ResultSet rs=stmt.executeQuery("select regno from custdetails where tele = "+tele");
+		if(rs.next())
+		{
+			HttpSession sess=new 
 		response.sendRedirect("displayprovider.jsp");
 	}
 	else

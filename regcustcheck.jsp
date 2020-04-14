@@ -27,8 +27,11 @@
 		ResultSet rs=stmt.executeQuery("select regno from custdetails where tele = "+tele");
 		if(rs.next())
 		{
-			HttpSession sess=new 
-		response.sendRedirect("displayprovider.jsp");
+			int regno1=rs.getInt(1);
+			HttpSession sess = request.getSession(false);
+			sess.setAttribute("regno",regno1);
+			response.sendRedirect("displayprovider.jsp");
+		}
 	}
 	else
 	{

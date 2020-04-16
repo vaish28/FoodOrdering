@@ -12,8 +12,9 @@ Web-based software to manage Ordering of Tiffin.An interface for Tiffin provider
 ```
 •	Tomcat Apache
 •	Mars Eclipse
-- ncsj
-
-One Paragraph of project description goes here
+```
 
 ## Getting Started
+```
+•	
+

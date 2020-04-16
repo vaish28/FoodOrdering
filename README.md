@@ -23,3 +23,10 @@ Web-based software to manage Ordering of Tiffin.An interface for Tiffin provider
 ```
 
 ## Features
+```
+•	Login and register page
+•	Maintaining database of customer and provider
+•	Accepting and easy Editing of Menu and Orders
+•	Easy and User-friendly Dashboard
+•	Customer feedback portal
+```
